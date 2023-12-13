@@ -1,0 +1,111 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Constants = exports.DEFAULT_HOST = exports.EMULATOR_DESCRIPTION = exports.FIND_AVAILBLE_PORT_BY_DEFAULT = exports.DEFAULT_PORTS = void 0;
+exports.DEFAULT_PORTS = {
+    ui: 4000,
+    hub: 4400,
+    logging: 4500,
+    hosting: 5000,
+    functions: 5001,
+    extensions: 5001,
+    firestore: 8080,
+    pubsub: 8085,
+    database: 9000,
+    auth: 9099,
+    storage: 9199,
+    eventarc: 9299,
+};
+exports.FIND_AVAILBLE_PORT_BY_DEFAULT = {
+    ui: true,
+    hub: true,
+    logging: true,
+    hosting: true,
+    functions: false,
+    firestore: false,
+    database: false,
+    pubsub: false,
+    auth: false,
+    storage: false,
+    extensions: false,
+    eventarc: true,
+};
+exports.EMULATOR_DESCRIPTION = {
+    ui: "Emulator UI",
+    hub: "emulator hub",
+    logging: "Logging Emulator",
+    hosting: "Hosting Emulator",
+    functions: "Functions Emulator",
+    firestore: "Firestore Emulator",
+    database: "Database Emulator",
+    pubsub: "Pub/Sub Emulator",
+    auth: "Authentication Emulator",
+    storage: "Storage Emulator",
+    extensions: "Extensions Emulator",
+    eventarc: "Eventarc Emulator",
+};
+exports.DEFAULT_HOST = "localhost";
+class Constants {
+    static getServiceName(service) {
+        switch (service) {
+            case this.SERVICE_FIRESTORE:
+                return "firestore";
+            case this.SERVICE_REALTIME_DATABASE:
+                return "database";
+            case this.SERVICE_PUBSUB:
+                return "pubsub";
+            case this.SERVICE_ANALYTICS:
+                return "analytics";
+            case this.SERVICE_AUTH:
+                return "auth";
+            case this.SERVICE_CRASHLYTICS:
+                return "crashlytics";
+            case this.SERVICE_REMOTE_CONFIG:
+                return "remote config";
+            case this.SERVICE_STORAGE:
+                return "storage";
+            case this.SERVICE_TEST_LAB:
+                return "test lab";
+            case this.SERVICE_EVENTARC:
+                return "eventarc";
+            default:
+                return service;
+        }
+    }
+    static getDefaultHost() {
+        return exports.DEFAULT_HOST;
+    }
+    static getDefaultPort(emulator) {
+        return exports.DEFAULT_PORTS[emulator];
+    }
+    static description(name) {
+        return exports.EMULATOR_DESCRIPTION[name];
+    }
+    static isDemoProject(projectId) {
+        return !!projectId && projectId.startsWith(this.FAKE_PROJECT_ID_PREFIX);
+    }
+}
+exports.Constants = Constants;
+Constants.FAKE_PROJECT_ID_PREFIX = "demo-";
+Constants.FAKE_PROJECT_NUMBER = "0";
+Constants.DEFAULT_DATABASE_EMULATOR_NAMESPACE = "fake-server";
+Constants.FIREBASE_ENABLED_EXPERIMENTS = "FIREBASE_ENABLED_EXPERIMENTS";
+Constants.FIRESTORE_EMULATOR_HOST = "FIRESTORE_EMULATOR_HOST";
+Constants.FIRESTORE_EMULATOR_ENV_ALT = "FIREBASE_FIRESTORE_EMULATOR_ADDRESS";
+Constants.FIREBASE_DATABASE_EMULATOR_HOST = "FIREBASE_DATABASE_EMULATOR_HOST";
+Constants.FIREBASE_AUTH_EMULATOR_HOST = "FIREBASE_AUTH_EMULATOR_HOST";
+Constants.FIREBASE_STORAGE_EMULATOR_HOST = "FIREBASE_STORAGE_EMULATOR_HOST";
+Constants.CLOUD_STORAGE_EMULATOR_HOST = "STORAGE_EMULATOR_HOST";
+Constants.PUBSUB_EMULATOR_HOST = "PUBSUB_EMULATOR_HOST";
+Constants.CLOUD_EVENTARC_EMULATOR_HOST = "CLOUD_EVENTARC_EMULATOR_HOST";
+Constants.FIREBASE_EMULATOR_HUB = "FIREBASE_EMULATOR_HUB";
+Constants.FIREBASE_GA_SESSION = "FIREBASE_GA_SESSION";
+Constants.SERVICE_FIRESTORE = "firestore.googleapis.com";
+Constants.SERVICE_REALTIME_DATABASE = "firebaseio.com";
+Constants.SERVICE_PUBSUB = "pubsub.googleapis.com";
+Constants.SERVICE_EVENTARC = "eventarc.googleapis.com";
+Constants.SERVICE_ANALYTICS = "app-measurement.com";
+Constants.SERVICE_AUTH = "firebaseauth.googleapis.com";
+Constants.SERVICE_CRASHLYTICS = "fabric.io";
+Constants.SERVICE_REMOTE_CONFIG = "firebaseremoteconfig.googleapis.com";
+Constants.SERVICE_STORAGE = "storage.googleapis.com";
+Constants.SERVICE_TEST_LAB = "testing.googleapis.com";

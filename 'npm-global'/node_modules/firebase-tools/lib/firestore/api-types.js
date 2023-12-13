@@ -1,0 +1,60 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PointInTimeRecoveryEnablement = exports.PointInTimeRecoveryEnablementOption = exports.DatabaseDeleteProtectionState = exports.DatabaseDeleteProtectionStateOption = exports.DatabaseType = exports.StateTtl = exports.State = exports.ArrayConfig = exports.Order = exports.QueryScope = exports.Mode = void 0;
+var Mode;
+(function (Mode) {
+    Mode["ASCENDING"] = "ASCENDING";
+    Mode["DESCENDING"] = "DESCENDING";
+    Mode["ARRAY_CONTAINS"] = "ARRAY_CONTAINS";
+})(Mode = exports.Mode || (exports.Mode = {}));
+var QueryScope;
+(function (QueryScope) {
+    QueryScope["COLLECTION"] = "COLLECTION";
+    QueryScope["COLLECTION_GROUP"] = "COLLECTION_GROUP";
+})(QueryScope = exports.QueryScope || (exports.QueryScope = {}));
+var Order;
+(function (Order) {
+    Order["ASCENDING"] = "ASCENDING";
+    Order["DESCENDING"] = "DESCENDING";
+})(Order = exports.Order || (exports.Order = {}));
+var ArrayConfig;
+(function (ArrayConfig) {
+    ArrayConfig["CONTAINS"] = "CONTAINS";
+})(ArrayConfig = exports.ArrayConfig || (exports.ArrayConfig = {}));
+var State;
+(function (State) {
+    State["CREATING"] = "CREATING";
+    State["READY"] = "READY";
+    State["NEEDS_REPAIR"] = "NEEDS_REPAIR";
+})(State = exports.State || (exports.State = {}));
+var StateTtl;
+(function (StateTtl) {
+    StateTtl["CREATING"] = "CREATING";
+    StateTtl["ACTIVE"] = "ACTIVE";
+    StateTtl["NEEDS_REPAIR"] = "NEEDS_REPAIR";
+})(StateTtl = exports.StateTtl || (exports.StateTtl = {}));
+var DatabaseType;
+(function (DatabaseType) {
+    DatabaseType["DATASTORE_MODE"] = "DATASTORE_MODE";
+    DatabaseType["FIRESTORE_NATIVE"] = "FIRESTORE_NATIVE";
+})(DatabaseType = exports.DatabaseType || (exports.DatabaseType = {}));
+var DatabaseDeleteProtectionStateOption;
+(function (DatabaseDeleteProtectionStateOption) {
+    DatabaseDeleteProtectionStateOption["ENABLED"] = "ENABLED";
+    DatabaseDeleteProtectionStateOption["DISABLED"] = "DISABLED";
+})(DatabaseDeleteProtectionStateOption = exports.DatabaseDeleteProtectionStateOption || (exports.DatabaseDeleteProtectionStateOption = {}));
+var DatabaseDeleteProtectionState;
+(function (DatabaseDeleteProtectionState) {
+    DatabaseDeleteProtectionState["ENABLED"] = "DELETE_PROTECTION_ENABLED";
+    DatabaseDeleteProtectionState["DISABLED"] = "DELETE_PROTECTION_DISABLED";
+})(DatabaseDeleteProtectionState = exports.DatabaseDeleteProtectionState || (exports.DatabaseDeleteProtectionState = {}));
+var PointInTimeRecoveryEnablementOption;
+(function (PointInTimeRecoveryEnablementOption) {
+    PointInTimeRecoveryEnablementOption["ENABLED"] = "ENABLED";
+    PointInTimeRecoveryEnablementOption["DISABLED"] = "DISABLED";
+})(PointInTimeRecoveryEnablementOption = exports.PointInTimeRecoveryEnablementOption || (exports.PointInTimeRecoveryEnablementOption = {}));
+var PointInTimeRecoveryEnablement;
+(function (PointInTimeRecoveryEnablement) {
+    PointInTimeRecoveryEnablement["ENABLED"] = "POINT_IN_TIME_RECOVERY_ENABLED";
+    PointInTimeRecoveryEnablement["DISABLED"] = "POINT_IN_TIME_RECOVERY_DISABLED";
+})(PointInTimeRecoveryEnablement = exports.PointInTimeRecoveryEnablement || (exports.PointInTimeRecoveryEnablement = {}));
