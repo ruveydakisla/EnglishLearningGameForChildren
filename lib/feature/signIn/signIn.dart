@@ -1,74 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/core/services/auth_services.dart';
-import 'package:flutter_application/product/constants/string_constants.dart';
+import 'package:flutter_application/product/constants/index.dart';
 import 'package:flutter_application/product/widget/buttons/custom_elevated_button.dart';
 import 'package:flutter_application/product/widget/textfields/text_field.dart';
 
-class SignupFormView extends StatefulWidget {
-  const SignupFormView({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
   @override
-  _SignupFormViewState createState() => _SignupFormViewState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignupFormViewState extends State<SignupFormView> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
-  bool showLoading = false;
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
+class _SignInPageState extends _SignInPageAbstract {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign Up"),
+        title: const Text(StringConstants.signIn),
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              StringConstants.appName,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              "It's easier to sing up new",
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
             CustomTextField(
-              type: TextInputType.emailAddress,
               labelText: StringConstants.email,
               controller: emailController,
+              type: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(
+              height: 20,
+            ),
             CustomTextField(
-              obsecure: true,
               labelText: StringConstants.password,
               controller: passwordController,
+              obsecure: true,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(
+              height: 20,
+            ),
             CustomElevatedButton(
-              buttonText: StringConstants.signUp,
-              onPressed: registerUser,
+              buttonText: StringConstants.signIn,
+              onPressed: signInUser,
             ),
+            const Text("data")
           ],
         ),
       ),
     );
   }
+}
 
-  Future<void> registerUser() async {
+abstract class _SignInPageAbstract extends State<SignInPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool showLoading = false;
+
+  Future<void> signInUser() async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Validate fields first')));
@@ -76,7 +64,7 @@ class _SignupFormViewState extends State<SignupFormView> {
       setState(() {
         showLoading = true;
       });
-      await AuthServices().registerUserInFirebase(
+      await AuthServices().loginUserFirebase(
           emailController.text, passwordController.text, context);
       emailController.clear();
       passwordController.clear();

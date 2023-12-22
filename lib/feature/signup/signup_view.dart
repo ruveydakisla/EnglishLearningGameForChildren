@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/feature/signIn/signIn.dart';
+import 'package:flutter_application/feature/signup_form/signup_form_view.dart';
+import 'package:flutter_application/product/constants/index.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -12,7 +15,7 @@ class _SignupViewState extends State<SignupView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign Up"),
+        title: const Text(StringConstants.signUp),
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -20,7 +23,7 @@ class _SignupViewState extends State<SignupView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Congratulate",
+              StringConstants.appName,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
@@ -60,6 +63,25 @@ class _SignupViewState extends State<SignupView> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: 400,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignupFormView()));
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.mail),
+                        Text("Continue with email"),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -68,7 +90,12 @@ class _SignupViewState extends State<SignupView> {
               children: [
                 const Text("Already have account?"),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignInPage()));
+                  },
                   child: const Text("Login"),
                 ),
               ],
