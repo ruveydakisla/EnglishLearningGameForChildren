@@ -47,9 +47,8 @@ dependencies:
   flutter_riverpod: ^2.4.9
   kartal: ^3.5.0
   equatable: ^2.0.5
-
-  ##game engine
-  flame: ^1.0.0
+  flame: ^1.13.1
+  audioplayers: ^5.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
