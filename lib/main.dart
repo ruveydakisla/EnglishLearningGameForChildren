@@ -1,6 +1,11 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/feature/game/games_view.dart';
 import 'package:flutter_application/feature/game/sound_game.dart';
+import 'package:flutter_application/feature/game/sound_game2.dart';
+import 'package:flutter_application/feature/navbar/top_navbar.dart';
+import 'package:flutter_application/feature/signIn/signIn.dart';
+import 'package:flutter_application/feature/signup/signup_view.dart';
 import 'package:flutter_application/product/initialize/application_start.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,6 +28,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData.light(useMaterial3: true),
-        home: const SoundGame());
+        home: const SignupView());
   }
 }

@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_application/product/constants/icons_constants.dart';
@@ -17,15 +17,102 @@ class SoundGame extends StatefulWidget {
 
 class _SoundGameState extends State<SoundGame> {
   final player = AudioPlayer();
-
-  int result = 0;
-  int counter = 0;
+  List<String> words = [
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eigth',
+    'nine'
+  ];
+  String currentWord = '';
+  int score = 0;
+  bool gameStarted = false;
   late Timer timer;
+  int gameTimeInSeconds = 60;
+  late String word;
+
+  void _startGame() {
+    if (!gameStarted) {
+      _resetGame(); // Oyun başlamadan önce sıfırla
+      _playRandomWord();
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {
+          gameTimeInSeconds--;
+          if (gameTimeInSeconds <= 0) {
+            timer.cancel();
+            _showEndGameDialog();
+          }
+        });
+      });
+      gameStarted = true;
+    }
+  }
+
+  void _resetGame() {
+    setState(() {
+      score = 0;
+      gameTimeInSeconds = 30;
+    });
+  }
+
+  void _playRandomWord() async {
+    final Random random = Random();
+    final int randomIndex = random.nextInt(words.length);
+    final String selectedWord = words[randomIndex];
+    setState(() {
+      currentWord = selectedWord;
+      word = selectedWord;
+    });
+    await player.play(UrlSource(
+        'https://translate.google.com/translate_tts?ie=UTF-8&q=$currentWord&tl=en&client=tw-ob')); // Sesi çal
+  }
+
+  void _checkAnswer(String selectedWord) {
+    int points;
+    if (selectedWord == currentWord) {
+      // Doğru cevap
+      points = 5;
+    } else {
+      // Yanlış cevap
+      points = -4;
+    }
+
+    setState(() {
+      score += points;
+    });
+
+    _playRandomWord(); // Sonraki kelimeye geç
+  }
+
+  void _showEndGameDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Game Over'),
+          content: Text('Your score: $score'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                _resetGame(); // Oyun bittikten sonra sıfırla
+                Navigator.of(context).pop(); // Dialog'u kapat
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    start();
+    _startGame();
   }
 
   @override
@@ -52,15 +139,20 @@ class _SoundGameState extends State<SoundGame> {
               style: context.general.textTheme.headlineSmall!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(
-              height: 100,
+            Text(
+              'Time: $gameTimeInSeconds seconds',
+              style: const TextStyle(fontSize: 16),
+            ),
+            Text(
+              'Score: $score',
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(
-                width: 200,
-                height: 200,
+                width: 170,
+                height: 170,
                 child: ElevatedButton(
                     onPressed: () {
-                      SoundService().play('seven');
+                      SoundService().play(word);
                     },
                     child: IconConstants.icon_speaker.toImg)),
             const SizedBox(
@@ -70,27 +162,80 @@ class _SoundGameState extends State<SoundGame> {
               children: [
                 CustomSoundGameCard(
                   img: IconConstants.number_one.toImg,
+                  onTap: () {
+                    _checkAnswer('one');
+                  },
+                  // title: 'one',
                 ),
                 CustomSoundGameCard(
-                  img: IconConstants.number_five.toImg,
+                  img: IconConstants.number_two.toImg,
+                  onTap: () {
+                    _checkAnswer('two');
+                  },
+                  // title: 'five',
                 ),
                 CustomSoundGameCard(
-                  img: IconConstants.number_four.toImg,
+                  img: IconConstants.number_three.toImg,
+                  onTap: () {
+                    _checkAnswer('three');
+                  },
+                  // title: 'four',
                 ),
               ],
             ),
+            Row(
+              children: [
+                CustomSoundGameCard(
+                  img: IconConstants.number_four.toImg,
+                  onTap: () {
+                    _checkAnswer('four');
+                  },
+                ),
+                CustomSoundGameCard(
+                  img: IconConstants.number_five.toImg,
+                  onTap: () {
+                    _checkAnswer('five');
+                  },
+                ),
+                CustomSoundGameCard(
+                  img: IconConstants.number_six.toImg,
+                  onTap: () {
+                    _checkAnswer('six');
+                  },
+                )
+              ],
+            ),
+            Row(
+              children: [
+                CustomSoundGameCard(
+                  img: IconConstants.number_seven.toImg,
+                  onTap: () {
+                    _checkAnswer('seven');
+                  },
+                ),
+                CustomSoundGameCard(
+                  img: IconConstants.number_eight.toImg,
+                  onTap: () {
+                    _checkAnswer('eight');
+                  },
+                ),
+                CustomSoundGameCard(
+                  img: IconConstants.number_nine.toImg,
+                  onTap: () {
+                    _checkAnswer('nine');
+                  },
+                )
+              ],
+            )
           ],
         ),
       ),
     );
   }
 
-  void start() {
-    SoundService().play('seven');
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        counter++;
-      });
-    });
+  @override
+  void dispose() {
+    timer.cancel(); // Widget kapatıldığında timer'ı iptal et
+    super.dispose();
   }
 }

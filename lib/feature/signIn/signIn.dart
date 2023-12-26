@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/core/services/auth_services.dart';
+import 'package:flutter_application/feature/navbar/top_navbar.dart';
 import 'package:flutter_application/product/constants/index.dart';
 import 'package:flutter_application/product/widget/buttons/custom_elevated_button.dart';
 import 'package:flutter_application/product/widget/textfields/text_field.dart';
@@ -43,7 +44,6 @@ class _SignInPageState extends _SignInPageAbstract {
               buttonText: StringConstants.signIn,
               onPressed: signInUser,
             ),
-            const Text("data")
           ],
         ),
       ),
@@ -66,6 +66,7 @@ abstract class _SignInPageAbstract extends State<SignInPage> {
       });
       await AuthServices().loginUserFirebase(
           emailController.text, passwordController.text, context);
+
       emailController.clear();
       passwordController.clear();
       setState(() {
