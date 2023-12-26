@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/signIn/signIn.dart';
-import 'package:flutter_application/feature/signup_form/signup_form_view.dart';
+import 'package:flutter_application/product/constants/icons_constants.dart';
 import 'package:flutter_application/product/constants/index.dart';
+import 'package:kartal/kartal.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -13,90 +14,48 @@ class SignupView extends StatefulWidget {
 class _SignupViewState extends State<SignupView> {
   @override
   Widget build(BuildContext context) {
+    const sizedBoxSmall = SizedBox(height: 20);
+    const sizedBoxMedium = SizedBox(height: 40);
     return Scaffold(
       appBar: AppBar(
         title: const Text(StringConstants.signUp),
       ),
       body: Container(
-        padding: const EdgeInsets.all(20),
+        padding: PagePadding.smallPadding.padding,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               StringConstants.appName,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: context.general.textTheme.headlineMedium,
             ),
-            const SizedBox(height: 20),
-            const Text(
-              "It's easier to sing up new",
-              style: TextStyle(fontSize: 16),
+            sizedBoxSmall,
+            Text(
+              StringConstants.bestEnglish,
+              style: context.general.textTheme.bodyMedium,
             ),
-            const SizedBox(height: 20),
-            const SizedBox(height: 20),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 400,
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.facebook),
-                        Text("Continue with Facebook"),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: 400,
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.mail),
-                        Text("Continue with Google"),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: 400,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignupFormView()));
-                    },
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.mail),
-                        Text("Continue with email"),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+            ImageConstants.iLovePlay.toImg,
+            sizedBoxMedium,
+            _SignUpButton(
+                text: StringConstants.continueWithGoogle,
+                icon: IconConstants.googleIcon.toImg),
+            sizedBoxSmall,
+            _SignUpButton(
+              icon: IconConstants.facebookIcon.toImg,
+              text: StringConstants.continueWithFacebook,
             ),
-            const SizedBox(height: 20),
+            sizedBoxSmall,
+            _SignUpButton(
+                text: StringConstants.continueWithEmail,
+                icon: IconConstants.emailIcon.toImg),
+            sizedBoxSmall,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Already have account?"),
+                const Text(StringConstants.alreadyHaveAccount),
                 TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignInPage()));
-                  },
-                  child: const Text("Login"),
+                  onPressed: goLogin,
+                  child: const Text(StringConstants.signIn),
                 ),
               ],
             ),
@@ -105,4 +64,44 @@ class _SignupViewState extends State<SignupView> {
       ),
     );
   }
+
+  void goLogin() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const SignInPage()));
+  }
+}
+
+class _SignUpButton extends StatelessWidget {
+  const _SignUpButton({
+    super.key,
+    required this.text,
+    required this.icon,
+  });
+
+  final String text;
+  final Image icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 400,
+      child: OutlinedButton(
+        onPressed: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(width: 30, height: 30, child: icon),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(text),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PagePadding {
+  static const Padding smallPadding = Padding(padding: EdgeInsets.all(20));
 }
