@@ -8,4 +8,5 @@ class ColorConstants {
   static const ottomanRed = Color(0xffEF2025);
   static const cherryPearl = Color(0xffFAE7F3);
   static const sunny = Color(0xffF4F27E);
+  static const darkKnight = Color(0xff161A30);
 }
