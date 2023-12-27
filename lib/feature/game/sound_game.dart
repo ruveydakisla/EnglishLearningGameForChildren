@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_application/product/constants/icons_constants.dart';
 import 'package:flutter_application/product/constants/index.dart';
+import 'package:flutter_application/product/Vocabulary/number_datas.dart';
 import 'package:flutter_application/product/services/sound_service.dart';
 import 'package:flutter_application/product/widget/cards/custom_sound_game_card.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 
 class SoundGame extends StatefulWidget {
-  const SoundGame({super.key});
+  final List<Word> words;
+
+  const SoundGame({required this.words, Key? key}) : super(key: key);
 
   @override
   State<SoundGame> createState() => _SoundGameState();
@@ -17,17 +21,7 @@ class SoundGame extends StatefulWidget {
 
 class _SoundGameState extends State<SoundGame> {
   final player = AudioPlayer();
-  List<String> words = [
-    'one',
-    'two',
-    'three',
-    'four',
-    'five',
-    'six',
-    'seven',
-    'eigth',
-    'nine'
-  ];
+  late List<String> words;
   String currentWord = '';
   int score = 0;
   bool gameStarted = false;
@@ -112,6 +106,7 @@ class _SoundGameState extends State<SoundGame> {
   @override
   void initState() {
     super.initState();
+    words = widget.words.map((word) => word.name).toList();
     _startGame();
   }
 
@@ -119,16 +114,14 @@ class _SoundGameState extends State<SoundGame> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: const Icon(Icons.arrow_back),
-          centerTitle: true,
-          backgroundColor: ColorConstants.sunny,
-          title: const Text('Numbers'),
-          shape: const RoundedRectangleBorder(
-            side: BorderSide(width: 2, color: Color(0xff711DB0)),
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30)),
-          )),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_ios)),
+        centerTitle: true,
+        backgroundColor: ColorConstants.cherryPearl,
+      ),
       backgroundColor: ColorConstants.cherryPearl,
       body: Center(
         child: Column(
@@ -136,8 +129,7 @@ class _SoundGameState extends State<SoundGame> {
           children: [
             Text(
               'Please choose correct Image',
-              style: context.general.textTheme.headlineSmall!
-                  .copyWith(fontWeight: FontWeight.bold),
+              style: GoogleFonts.martelSans().copyWith(fontSize: 20),
             ),
             Text(
               'Time: $gameTimeInSeconds seconds',
@@ -156,76 +148,18 @@ class _SoundGameState extends State<SoundGame> {
                     },
                     child: IconConstants.icon_speaker.toImg)),
             const SizedBox(
-              height: 100,
+              height: 40,
             ),
-            Row(
-              children: [
-                CustomSoundGameCard(
-                  img: IconConstants.number_one.toImg,
-                  onTap: () {
-                    _checkAnswer('one');
-                  },
-                  // title: 'one',
-                ),
-                CustomSoundGameCard(
-                  img: IconConstants.number_two.toImg,
-                  onTap: () {
-                    _checkAnswer('two');
-                  },
-                  // title: 'five',
-                ),
-                CustomSoundGameCard(
-                  img: IconConstants.number_three.toImg,
-                  onTap: () {
-                    _checkAnswer('three');
-                  },
-                  // title: 'four',
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                CustomSoundGameCard(
-                  img: IconConstants.number_four.toImg,
-                  onTap: () {
-                    _checkAnswer('four');
-                  },
-                ),
-                CustomSoundGameCard(
-                  img: IconConstants.number_five.toImg,
-                  onTap: () {
-                    _checkAnswer('five');
-                  },
-                ),
-                CustomSoundGameCard(
-                  img: IconConstants.number_six.toImg,
-                  onTap: () {
-                    _checkAnswer('six');
-                  },
-                )
-              ],
-            ),
-            Row(
-              children: [
-                CustomSoundGameCard(
-                  img: IconConstants.number_seven.toImg,
-                  onTap: () {
-                    _checkAnswer('seven');
-                  },
-                ),
-                CustomSoundGameCard(
-                  img: IconConstants.number_eight.toImg,
-                  onTap: () {
-                    _checkAnswer('eight');
-                  },
-                ),
-                CustomSoundGameCard(
-                  img: IconConstants.number_nine.toImg,
-                  onTap: () {
-                    _checkAnswer('nine');
-                  },
-                )
-              ],
+            Wrap(
+              children: widget.words
+                  .map((word) => CustomSoundGameCard(
+                        img: Image.network(word.url),
+                        size: widget.words.length > 12 ? 100 : 120,
+                        onTap: () {
+                          _checkAnswer(word.name);
+                        },
+                      ))
+                  .toList(),
             )
           ],
         ),

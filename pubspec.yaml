@@ -39,7 +39,11 @@ dependencies:
   cloud_firestore: ^4.13.6
   firebase_auth: ^4.15.3
   firebase_ui_auth: ^1.11.0
+  flutter_facebook_auth: '^3.5.0'
   firebase_ui_oauth_google: ^1.2.15
+
+  #fonts
+  google_fonts: ^6.1.0
 
   #caching 
   shared_preferences: ^2.2.2
@@ -51,7 +55,7 @@ dependencies:
   audioplayers: ^5.2.1
 
 
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -68,7 +72,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

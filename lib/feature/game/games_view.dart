@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/game/game_example.dart';
 import 'package:flutter_application/feature/game/sound_game.dart';
 import 'package:flutter_application/product/constants/index.dart';
+import 'package:flutter_application/product/Vocabulary/number_datas.dart';
 
 class GamesView extends StatefulWidget {
   const GamesView({super.key});
@@ -33,7 +34,9 @@ class _GamesViewState extends State<GamesView> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SoundGame()));
+                              builder: (context) => SoundGame(
+                                    words: Numbers.numbers,
+                                  )));
                     },
                     child: SizedBox(
                         width: 200,
