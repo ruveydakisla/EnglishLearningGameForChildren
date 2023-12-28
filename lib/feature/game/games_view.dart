@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/feature/game/matching_game.dart';
-import 'package:flutter_application/feature/game/sound_game.dart';
+import 'package:flutter_application/feature/topics/topics_sound_view.dart';
 import 'package:flutter_application/product/constants/index.dart';
-import 'package:flutter_application/product/Vocabulary/number_datas.dart';
+import 'package:flutter_application/product/widget/cards/custom_games_card.dart';
+
+import '../topics/topics_matching.dart';
 
 class GamesView extends StatefulWidget {
   const GamesView({super.key});
@@ -29,30 +30,15 @@ class _GamesViewState extends State<GamesView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SoundGame(
-                                    words: Numbers.numbers,
-                                  )));
-                    },
-                    child: SizedBox(
-                        width: 200,
-                        height: 250,
-                        child: Card(child: ImageConstants.soundGame2.toImg)),
-                  ),
+                  CustomGamesCard(
+                      img: ImageConstants.soundGame2.toImg,
+                      gamewidget: const TopicsSound()),
                   const SizedBox(
                     width: 5,
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: SizedBox(
-                        width: 200,
-                        height: 250,
-                        child: Card(child: ImageConstants.soundGame.toImg)),
-                  ),
+                  CustomGamesCard(
+                      img: ImageConstants.soundGame.toImg,
+                      gamewidget: const TopicsSound())
                 ],
               ),
               const SizedBox(
@@ -61,30 +47,15 @@ class _GamesViewState extends State<GamesView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InkWell(
-                    onTap: () {},
-                    child: SizedBox(
-                        width: 200,
-                        height: 250,
-                        child: Card(child: ImageConstants.iLovePlay.toImg)),
-                  ),
+                  CustomGamesCard(
+                      img: ImageConstants.iLovePlay.toImg,
+                      gamewidget: const TopicsSound()),
                   const SizedBox(
                     width: 5,
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MatchingGame(
-                                    vocabulary: Numbers.numbers,
-                                  )));
-                    },
-                    child: SizedBox(
-                        width: 200,
-                        height: 250,
-                        child: Card(child: ImageConstants.wordGame.toImg)),
-                  ),
+                  CustomGamesCard(
+                      img: ImageConstants.wordGame.toImg,
+                      gamewidget: const TopicsMatching())
                 ],
               )
             ],
