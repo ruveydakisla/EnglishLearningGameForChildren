@@ -1,4 +1,4 @@
-import 'package:flutter_application/product/Vocabulary/number_datas.dart';
+import 'package:flutter_application/product/Vocabulary/color_datas.dart';
 
 class Animals {
   static List<Word> animals = [
