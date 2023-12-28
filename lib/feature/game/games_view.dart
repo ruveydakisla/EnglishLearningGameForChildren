@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/feature/game/game_example.dart';
+import 'package:flutter_application/feature/game/matching_game.dart';
 import 'package:flutter_application/feature/game/sound_game.dart';
 import 'package:flutter_application/product/constants/index.dart';
 import 'package:flutter_application/product/Vocabulary/number_datas.dart';
@@ -76,7 +76,9 @@ class _GamesViewState extends State<GamesView> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const GamePage()));
+                              builder: (context) => MatchingGame(
+                                    vocabulary: Numbers.numbers,
+                                  )));
                     },
                     child: SizedBox(
                         width: 200,

@@ -1,17 +1,9 @@
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/feature/game/games_view.dart';
-import 'package:flutter_application/feature/game/sound_game.dart';
-import 'package:flutter_application/feature/game/sound_game2.dart';
-import 'package:flutter_application/feature/navbar/top_navbar.dart';
-import 'package:flutter_application/feature/signIn/signIn.dart';
-import 'package:flutter_application/feature/signup/signup_view.dart';
-import 'package:flutter_application/product/Vocabulary/animals_datas.dart';
+import 'package:flutter_application/feature/game/matching_game.dart';
 import 'package:flutter_application/product/initialize/application_start.dart';
 import 'package:flutter_application/product/Vocabulary/number_datas.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kartal/kartal.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,8 +27,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           textTheme: GoogleFonts.martelSansTextTheme(),
         ),
-        home: SoundGame(
-          words: Animals.animals,
+        home: MatchingGame(
+          vocabulary: Numbers.numbers,
         ));
   }
 }
