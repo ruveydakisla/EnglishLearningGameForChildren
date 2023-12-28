@@ -27,6 +27,29 @@ enum IconConstants {
       'https://cdn-icons-png.flaticon.com/128/12942/12942327.png?uid=R132188031&semt=ais'),
   emailIcon(
       'https://cdn-icons-png.flaticon.com/128/732/732200.png?uid=R132188031&semt=ais'),
+  colorsIcon(
+      'https://cdn-icons-png.flaticon.com/128/7101/7101105.png?semt=ais'),
+
+  animalsIcon('https://cdn-icons-png.flaticon.com/128/414/414680.png?semt=ais'),
+  fruitsIcon(
+      'https://cdn-icons-png.flaticon.com/128/3194/3194591.png?semt=ais'),
+  vegetablesIcon(
+      'https://cdn-icons-png.flaticon.com/128/6266/6266076.png?semt=ais'),
+
+  weatherIcon('https://cdn-icons-png.flaticon.com/128/648/648198.png?semt=ais'),
+  schoolStuffIcon(
+      'https://cdn-icons-png.flaticon.com/128/2342/2342063.png?semt=ais'),
+  bodySectionItem(
+      'https://cdn-icons-png.flaticon.com/128/8567/8567363.png?semt=ais'),
+  vehiclesIcon(
+      'https://cdn-icons-png.flaticon.com/128/4662/4662012.png?semt=ais'),
+
+  clothesIcon(
+      'https://cdn-icons-png.flaticon.com/128/2954/2954918.png?semt=ais'),
+  shapesIcon(
+      'https://cdn-icons-png.flaticon.com/128/8091/8091534.png?semt=ais'),
+  numbersIcon('https://cdn-icons-png.flaticon.com/128/709/709388.png'),
+
   icon_speaker('https://cdn-icons-png.flaticon.com/128/4859/4859079.png');
 
   final String value;
