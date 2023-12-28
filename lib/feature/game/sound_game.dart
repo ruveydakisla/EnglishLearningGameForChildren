@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_application/product/constants/icons_constants.dart';
 import 'package:flutter_application/product/constants/index.dart';
-import 'package:flutter_application/product/Vocabulary/number_datas.dart';
+import 'package:flutter_application/product/Vocabulary/color_datas.dart';
 import 'package:flutter_application/product/services/sound_service.dart';
 import 'package:flutter_application/product/widget/cards/custom_sound_game_card.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 
 class SoundGame extends StatefulWidget {
-  final List<Word> words;
+  final List<Word>? words;
 
-  const SoundGame({required this.words, Key? key}) : super(key: key);
+  const SoundGame({this.words, Key? key}) : super(key: key);
 
   @override
   State<SoundGame> createState() => _SoundGameState();
@@ -106,7 +106,7 @@ class _SoundGameState extends State<SoundGame> {
   @override
   void initState() {
     super.initState();
-    words = widget.words.map((word) => word.name).toList();
+    words = widget.words!.map((word) => word.name).toList();
     _startGame();
   }
 
@@ -151,10 +151,10 @@ class _SoundGameState extends State<SoundGame> {
               height: 40,
             ),
             Wrap(
-              children: widget.words
+              children: widget.words!
                   .map((word) => CustomSoundGameCard(
                         img: Image.network(word.url),
-                        size: widget.words.length > 12 ? 100 : 120,
+                        size: widget.words!.length > 12 ? 100 : 120,
                         onTap: () {
                           _checkAnswer(word.name);
                         },
