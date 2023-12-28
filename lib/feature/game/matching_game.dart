@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/game/start_page.dart';
-import 'package:flutter_application/product/Vocabulary/number_datas.dart';
+import 'package:flutter_application/product/Vocabulary/color_datas.dart';
 import 'components/custom_card.dart';
 
 class MatchingGame extends StatefulWidget {
   const MatchingGame({Key? key, required this.vocabulary}) : super(key: key);
-  final List<Word> vocabulary;
+  final List<Word>? vocabulary;
 
   @override
   _GamePageState createState() => _GamePageState();
@@ -85,7 +85,7 @@ class _GamePageState extends State<MatchingGame> {
   }
 
   void resetGame() {
-    List<Word> vocabularyCopy = [...widget.vocabulary, ...widget.vocabulary];
+    List<Word> vocabularyCopy = [...widget.vocabulary!, ...widget.vocabulary!];
     vocabularyCopy.shuffle();
 
     setState(() {
