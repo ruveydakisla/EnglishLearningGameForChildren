@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/product/Vocabulary/number_datas.dart';
+import 'package:flutter_application/product/Vocabulary/color_datas.dart';
 
 class CustomCard extends StatelessWidget {
   final Word word;
