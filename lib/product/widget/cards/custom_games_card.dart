@@ -33,7 +33,7 @@ class _CustomGamesCardState extends State<CustomGamesCard> {
         child: Card(
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20)),
-              side: BorderSide(color: ColorConstants.white, width: 5)),
+              side: BorderSide(color: ColorConstants.white, width: 3)),
           color: Colors.transparent,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +45,7 @@ class _CustomGamesCardState extends State<CustomGamesCard> {
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],
