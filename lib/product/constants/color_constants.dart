@@ -10,4 +10,5 @@ class ColorConstants {
   static const sunny = Color(0xffF4F27E);
   static const darkKnight = Color(0xff161A30);
   static const cremeDeMenth = Color(0xffF2FFE9);
+  static const actOfWrath = Color(0xff820300);
 }
