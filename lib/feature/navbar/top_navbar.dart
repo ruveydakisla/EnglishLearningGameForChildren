@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/game/games_view.dart';
 import 'package:flutter_application/product/constants/color_constants.dart';
-import 'package:flutter_application/product/constants/icons_constants.dart';
 
 class MyAppp extends StatelessWidget {
   const MyAppp({super.key});
@@ -25,8 +24,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final int _currentIndex = 0;
-
   final List<Widget> _tabs = [
     const GamesView(),
     const FavoritesScreen(),
@@ -39,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: ColorConstants.softPeach,
+          backgroundColor: ColorConstants.cremeDeMenth,
           bottom: TabBar(
             tabs: [
               Tab(

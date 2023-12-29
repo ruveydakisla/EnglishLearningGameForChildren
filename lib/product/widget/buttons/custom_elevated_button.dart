@@ -7,7 +7,6 @@ class CustomElevatedButton extends StatefulWidget {
 
   final String buttonText;
   final VoidCallback onPressed;
-  
 
   @override
   State<CustomElevatedButton> createState() => _CustomElevatedButtonState();
@@ -17,11 +16,11 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 220,
+      width: 500,
       height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xffEF2025),
+          backgroundColor: const Color(0xffB31312),
         ),
         onPressed: widget.onPressed,
         child: Text(

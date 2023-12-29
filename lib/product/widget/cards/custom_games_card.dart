@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/product/constants/color_constants.dart';
 
 class CustomGamesCard extends StatefulWidget {
   const CustomGamesCard(
@@ -18,7 +19,10 @@ class _CustomGamesCardState extends State<CustomGamesCard> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => widget.gamewidget));
       },
-      child: SizedBox(width: 200, height: 250, child: Card(child: widget.img)),
+      child: SizedBox(
+          width: 200,
+          height: 250,
+          child: Card(color: ColorConstants.cremeDeMenth, child: widget.img)),
     );
   }
 }

@@ -16,37 +16,44 @@ class _SignInPageState extends _SignInPageAbstract {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(StringConstants.signIn),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CustomTextField(
-              labelText: StringConstants.email,
-              controller: emailController,
-              type: TextInputType.emailAddress,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomTextField(
-              labelText: StringConstants.password,
-              controller: passwordController,
-              obsecure: true,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CustomElevatedButton(
-              buttonText: StringConstants.signIn,
-              onPressed: signInUser,
-            ),
-          ],
+      backgroundColor: const Color(0xffFFF5C2),
+      body: ListView(children: [
+        Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 80,
+              ),
+              ImageConstants.signInImg.toImg,
+              const SizedBox(
+                height: 40,
+              ),
+              CustomTextField(
+                labelText: StringConstants.email,
+                controller: emailController,
+                type: TextInputType.emailAddress,
+                action: TextInputAction.next,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextField(
+                labelText: StringConstants.password,
+                controller: passwordController,
+                obsecure: true,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              CustomElevatedButton(
+                buttonText: StringConstants.signIn,
+                onPressed: signInUser,
+              ),
+            ],
+          ),
         ),
-      ),
+      ]),
     );
   }
 }
