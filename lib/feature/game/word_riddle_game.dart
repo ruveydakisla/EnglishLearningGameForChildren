@@ -1,29 +1,65 @@
-import 'dart:async';
+// ... Diğer importlar ...
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application/product/Vocabulary/color_datas.dart';
+import 'package:flutter_application/product/constants/color_constants.dart';
+import 'package:kartal/kartal.dart';
+
+import '../../product/Vocabulary/color_datas.dart';
+import '../../product/constants/icons_constants.dart';
+
+// ... Diğer importlar ...
+
+// ... Diğer importlar ...
 
 class WordRiddle extends StatefulWidget {
-  final List<Word> wordList;
+  final List<Word>? wordList;
   const WordRiddle({Key? key, required this.wordList}) : super(key: key);
 
   @override
   _GameScreenState createState() => _GameScreenState();
 }
 
-// ...
-
 class _GameScreenState extends State<WordRiddle> {
   String targetWord = '';
   String currentImageUrl = '';
-  TextEditingController userGuessController = TextEditingController();
   List<String> filledLetters = [];
   Duration gameDuration = const Duration();
   bool isGameFinished = false;
   Stopwatch stopwatch = Stopwatch();
-  int currentWordIndex = 0; // Yeni ekledik
+  int currentWordIndex = 0;
+  bool isGameStarted = false;
+
+  final List<String> alphabet = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z'
+  ];
 
   @override
   void initState() {
@@ -31,16 +67,27 @@ class _GameScreenState extends State<WordRiddle> {
     resetGame();
   }
 
+  void startGame() {
+    if (!isGameStarted) {
+      setState(() {
+        isGameStarted = true;
+      });
+      stopwatch.start();
+    }
+  }
+
   void initializeWord() {
     final randomWord = generateRandomWord();
     setState(() {
-      targetWord = randomWord.name;
+      targetWord = randomWord.name.toUpperCase();
       currentImageUrl = randomWord.url;
       filledLetters = List.generate(targetWord.length, (index) => '');
     });
   }
 
   void checkWord() {
+    startGame();
+
     if (isGameFinished) {
       return;
     }
@@ -48,7 +95,7 @@ class _GameScreenState extends State<WordRiddle> {
     bool isCorrect = true;
 
     for (int i = 0; i < targetWord.length; i++) {
-      if (targetWord[i] != userGuessController.text[i]) {
+      if (targetWord[i].toUpperCase() != filledLetters[i].toUpperCase()) {
         isCorrect = false;
         break;
       }
@@ -64,34 +111,10 @@ class _GameScreenState extends State<WordRiddle> {
           currentWordIndex++;
         });
 
-        if (currentWordIndex < widget.wordList.length) {
+        if (currentWordIndex < widget.wordList!.length) {
           resetGame();
         } else {
-          setState(() {
-            isGameFinished = true;
-            gameDuration = stopwatch.elapsed; // Oyun bittiğinde süreyi kaydet
-          });
-
-          stopwatch.stop();
-
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text("Oyun Bitti!"),
-                content: Text(
-                    "Tüm kelimeleri doğru bildiniz!\nSüre: ${gameDuration.inSeconds} saniye ${gameDuration.inMilliseconds % 1000} milisaniye"),
-                actions: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Tamam"),
-                  ),
-                ],
-              );
-            },
-          );
+          endGame();
         }
       } else {
         showDialog(
@@ -134,6 +157,21 @@ class _GameScreenState extends State<WordRiddle> {
     }
   }
 
+  void deleteLetter() {
+    if (isGameFinished) {
+      return;
+    }
+
+    for (int i = targetWord.length - 1; i >= 0; i--) {
+      if (filledLetters[i].isNotEmpty) {
+        setState(() {
+          filledLetters[i] = '';
+          return;
+        });
+      }
+    }
+  }
+
   void resetGame() {
     if (isGameFinished) {
       setState(() {
@@ -143,99 +181,231 @@ class _GameScreenState extends State<WordRiddle> {
 
     final randomWord = generateRandomWord();
     setState(() {
-      targetWord = randomWord.name;
+      targetWord = randomWord.name.toUpperCase();
       currentImageUrl = randomWord.url;
-      userGuessController.clear();
       filledLetters = List.generate(targetWord.length, (index) => '');
       stopwatch.reset();
       stopwatch.start();
     });
   }
 
+  void endGame() {
+    if (isGameStarted) {
+      setState(() {
+        isGameFinished = true;
+        gameDuration = stopwatch.elapsed;
+      });
+
+      stopwatch.stop();
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Oyun Bitti!"),
+            content: Text(
+                "Tüm kelimeleri doğru bildiniz!\nSüre: ${gameDuration.inSeconds} saniye ${gameDuration.inMilliseconds % 1000} milisaniye"),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Tamam"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   Word generateRandomWord() {
     final random = Random();
-    return widget.wordList[currentWordIndex];
+    return widget.wordList![currentWordIndex];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Resimli Kelime Bulmaca Oyunu"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Resme Karşılık Gelen Kelime:"),
-            Image.network(
-              currentImageUrl,
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
-            Row(
+      body: Container(
+        color: ColorConstants.cremeDeMenth,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: targetWord
-                  .split('')
-                  .asMap()
-                  .entries
-                  .map(
-                    (entry) => Container(
-                      width: 30,
-                      height: 30,
-                      margin: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Center(
-                        child: Text(
-                          entry.key < filledLetters.length
-                              ? filledLetters[entry.key]
-                              : '',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                Image.network(
+                  currentImageUrl,
+                  height: 120,
+                  width: 120,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: targetWord
+                      .split('')
+                      .asMap()
+                      .entries
+                      .map(
+                        (entry) => Container(
+                          width: 50,
+                          height: 50,
+                          margin: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: ColorConstants.darkKnight,
+                            border:
+                                Border.all(color: ColorConstants.cherryPearl),
+                            borderRadius: BorderRadius.circular(50),
                           ),
+                          child: Center(
+                            child: Text(
+                              entry.key < filledLetters.length
+                                  ? filledLetters[entry.key]
+                                  : '',
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorConstants.white),
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+                const SizedBox(height: 40),
+                Column(
+                  children: [
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      children: alphabet.map((letter) {
+                        Color randomColor = Color(
+                                (Random().nextDouble() * 0xFFFFFF).toInt() << 0)
+                            .withOpacity(1.0);
+
+                        return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: randomColor,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              for (int i = 0; i < targetWord.length; i++) {
+                                if (filledLetters[i].isEmpty) {
+                                  filledLetters[i] = letter;
+                                  break;
+                                }
+                              }
+                            });
+                          },
+                          child: Text(
+                            letter,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(color: Colors.white),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                          width: 70,
+                          height: 70,
+                          child: IconButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                            onPressed: () {
+                              deleteLetter();
+                            },
+                            icon: IconConstants.removeIcon.toImg,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: 220,
+                      height: 60,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorConstants.darkKnight),
+                        onPressed: () {
+                          checkWord();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Check",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(color: ColorConstants.white),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            IconConstants.checkIcon.toImg
+                          ],
                         ),
                       ),
                     ),
-                  )
-                  .toList(),
+                    SizedBox(
+                      width: 170,
+                      height: 60,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorConstants.darkKnight),
+                        onPressed: () {
+                          resetGame();
+                        },
+                        child: Row(
+                          children: [
+                            Text(
+                              "Start Again",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(color: ColorConstants.white),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            SizedBox(
+                              width: 30,
+                              child: IconConstants.startAgainIcon.toImg,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: userGuessController,
-              onChanged: (value) {
-                setState(() {
-                  filledLetters = value.split('');
-                });
-              },
-              decoration: const InputDecoration(
-                labelText: 'Kelimeyi Giriniz',
-                border: OutlineInputBorder(),
-                counterText: '',
-              ),
-              maxLength: targetWord.length,
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              keyboardType: TextInputType.text,
-              textCapitalization: TextCapitalization.characters,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                checkWord();
-              },
-              child: const Text("Tahmin Et"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                resetGame();
-              },
-              child: const Text("Yeniden Başla"),
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/feature/topics/topics_riddle.dart';
 import 'package:flutter_application/feature/topics/topics_sound_view.dart';
 import 'package:flutter_application/product/constants/index.dart';
 import 'package:flutter_application/product/widget/cards/custom_games_card.dart';
@@ -31,14 +32,16 @@ class _GamesViewState extends State<GamesView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomGamesCard(
+                      text: 'Listening Game',
                       img: ImageConstants.soundGame2.toImg,
                       gamewidget: const TopicsSound()),
                   const SizedBox(
                     width: 5,
                   ),
                   CustomGamesCard(
-                      img: ImageConstants.soundGame.toImg,
-                      gamewidget: const TopicsSound())
+                      text: 'Word Riddle Game',
+                      img: ImageConstants.wordwiddleGame.toImg,
+                      gamewidget: const TopicsRiddle())
                 ],
               ),
               const SizedBox(
@@ -48,12 +51,14 @@ class _GamesViewState extends State<GamesView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomGamesCard(
+                      text: 'dsfsd',
                       img: ImageConstants.iLovePlay.toImg,
                       gamewidget: const TopicsSound()),
                   const SizedBox(
                     width: 5,
                   ),
                   CustomGamesCard(
+                      text: 'Word Matching',
                       img: ImageConstants.wordGame.toImg,
                       gamewidget: const TopicsMatching())
                 ],

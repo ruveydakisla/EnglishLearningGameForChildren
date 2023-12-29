@@ -49,7 +49,13 @@ enum IconConstants {
   shapesIcon(
       'https://cdn-icons-png.flaticon.com/128/8091/8091534.png?semt=ais'),
   numbersIcon('https://cdn-icons-png.flaticon.com/128/709/709388.png'),
+  removeIcon(
+      'https://cdn-icons-png.flaticon.com/128/7538/7538600.png?uid=R132188031'),
 
+  checkIcon(
+      'https://cdn-icons-png.flaticon.com/128/391/391175.png?uid=R132188031'),
+  startAgainIcon(
+      'https://cdn-icons-png.flaticon.com/128/5469/5469310.png?uid=R132188031&semt=ais'),
   icon_speaker('https://cdn-icons-png.flaticon.com/128/4859/4859079.png');
 
   final String value;

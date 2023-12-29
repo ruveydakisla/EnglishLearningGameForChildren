@@ -15,6 +15,8 @@ enum ImageConstants {
       'https://img.freepik.com/free-photo/xoxo-alphabet-letter-beads-typography_53876-94459.jpg?size=626&ext=jpg&uid=R132188031&semt=ais'),
   fish(
       'https://img.freepik.com/premium-vector/blue-fish-algae_24640-80261.jpg'),
+  wordwiddleGame(
+      'https://img.freepik.com/free-vector/english-book-illustration-design_23-2149522690.jpg?size=626&ext=jpg&uid=R132188031&semt=ais'),
   wordGame(
       'https://img.freepik.com/premium-photo/dictionary-3d-render-icon-illustration_726846-1551.jpg?size=626&ext=jpg&uid=R132188031&semt=ais'),
   soundGame2(

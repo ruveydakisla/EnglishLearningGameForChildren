@@ -5,7 +5,7 @@ class Word {
   Word({required this.name, required this.url});
 }
 
-class Color {
+class Colorr {
   static List<Word> colors = [
     Word(
       name: 'pink',

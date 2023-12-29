@@ -20,7 +20,7 @@ class Topic {
     Topic(
         name: 'Colors',
         icon: IconConstants.colorsIcon.toImg,
-        wordList: Color.colors),
+        wordList: Colorr.colors),
     Topic(
       name: 'Numbers',
       icon: IconConstants.numbersIcon.toImg,
