@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/feature/education/educations.dart';
 import 'package:flutter_application/feature/game/games_view.dart';
 import 'package:flutter_application/product/constants/color_constants.dart';
 
@@ -26,7 +27,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _tabs = [
     const GamesView(),
-    const FavoritesScreen(),
+    const Education(),
     const ProfileScreen(),
   ];
 
@@ -54,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Image.network(
                         'https://cdn-icons-png.flaticon.com/128/2843/2843321.png?uid=R132188031&semt=ais'),
                   ),
-                  text: 'Favorites'),
+                  text: 'Education'),
               Tab(
                   icon: SizedBox(
                     width: 30,
