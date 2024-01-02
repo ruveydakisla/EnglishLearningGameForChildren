@@ -44,6 +44,8 @@ enum ImageConstants {
   vegetablesImg(
       'https://img.freepik.com/free-vector/vegetables-icons-set_1284-21276.jpg?semt=sph'),
 
+  avatar1('https://cdn-icons-png.flaticon.com/128/9043/9043008.png?semt=ais'),
+  cupImg('https://cdn-icons-png.flaticon.com/128/3112/3112946.png?semt=ais'),
   signInImg(
       'https://img.freepik.com/free-vector/hand-drawn-english-school-background_23-2149496629.jpg?t=st=1703785329~exp=1703785929~hmac=f822067868a5867e5b9790ab513d7eff5f9c0a52756d17db9a88f0b22fc547e4'),
   soundGame(
