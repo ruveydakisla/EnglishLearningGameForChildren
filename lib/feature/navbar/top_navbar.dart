@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/education/educations.dart';
 import 'package:flutter_application/feature/game/games_view.dart';
+import 'package:flutter_application/feature/profile_dart/Profile.dart';
 import 'package:flutter_application/product/constants/color_constants.dart';
 
 class MyAppp extends StatelessWidget {
@@ -28,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _tabs = [
     const GamesView(),
     const Education(),
-    const ProfileScreen(),
+    const Profile(),
   ];
 
   @override
@@ -71,39 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
           children: _tabs,
         ),
       ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Home Screen'),
-    );
-  }
-}
-
-class FavoritesScreen extends StatelessWidget {
-  const FavoritesScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Favorites Screen'),
-    );
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Profile Screen'),
     );
   }
 }
