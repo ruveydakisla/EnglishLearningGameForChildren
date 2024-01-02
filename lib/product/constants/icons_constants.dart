@@ -19,6 +19,7 @@ enum IconConstants {
       'https://cdn-icons-png.flaticon.com/128/1474/1474576.png?semt=ais'),
   number_nine(
       'https://cdn-icons-png.flaticon.com/128/3554/3554338.png?semt=ais'),
+  soundIcon('https://cdn-icons-png.flaticon.com/128/189/189783.png?semt=ais'),
   gamesIcon(
       'https://www.freepik.com/icon/joystick_1978369#fromView=search&term=game+icon&track=ais&page=1&position=80'),
   googleIcon(
