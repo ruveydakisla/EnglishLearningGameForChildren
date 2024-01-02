@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/education/educations.dart';
 import 'package:flutter_application/feature/game/games_view.dart';
 import 'package:flutter_application/feature/profile_dart/Profile.dart';
+import 'package:flutter_application/feature/score_table/score_table.dart';
 import 'package:flutter_application/product/constants/color_constants.dart';
 
 class MyAppp extends StatelessWidget {
@@ -29,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _tabs = [
     const GamesView(),
     const Education(),
+    const AllUsersPage(),
     const Profile(),
   ];
 
@@ -57,6 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         'https://cdn-icons-png.flaticon.com/128/2843/2843321.png?uid=R132188031&semt=ais'),
                   ),
                   text: 'Education'),
+              Tab(
+                  icon: SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: Image.network(
+                        'https://cdn-icons-png.flaticon.com/128/1872/1872241.png'),
+                  ),
+                  text: 'Scores'),
               Tab(
                   icon: SizedBox(
                     width: 30,
