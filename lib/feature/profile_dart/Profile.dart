@@ -5,16 +5,6 @@ import 'package:flutter_application/product/constants/color_constants.dart';
 import 'package:flutter_application/product/constants/image_constants.dart';
 import 'package:kartal/kartal.dart';
 
-import '../score_table/score_table.dart';
-
-class User {
-  final String name;
-  final String url;
-  final int score;
-
-  User({required this.name, required this.url, required this.score});
-}
-
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -76,15 +66,22 @@ class _ProfileState extends State<Profile> {
                           style: context.general.textTheme.bodyLarge!
                               .copyWith(color: ColorConstants.cremeDeMenth),
                         ),
-                        const SizedBox(
-                          height: 50,
-                        ),
-                        ScoreTable(
-                            avatarUrl: avatarUrl, name: name, score: score),
                       ],
                     );
                   }
                 },
+              ),
+              const SizedBox(height: 50),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // Çıkış yap işlemleri
+                  // Örneğin:
+                  // FirebaseAuth.instance.signOut();
+                  Navigator.pop(
+                      context); // Profil sayfasından çıkış yaptıktan sonra geri dönmek istiyorsanız
+                },
+                child: const Text('Çıkış Yap'),
               ),
             ],
           ),
