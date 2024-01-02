@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/core/services/auth_services.dart';
+import 'package:flutter_application/core/services/cloud_services.dart';
+import 'package:flutter_application/feature/avatar_choose_page.dart/avatar_chose.dart';
 import 'package:flutter_application/product/constants/string_constants.dart';
 import 'package:flutter_application/product/widget/buttons/custom_elevated_button.dart';
 import 'package:flutter_application/product/widget/textfields/text_field.dart';
@@ -78,8 +82,17 @@ class _SignupFormViewState extends State<SignupFormView> {
       });
       await AuthServices().registerUserInFirebase(
           emailController.text, passwordController.text, context);
-      emailController.clear();
-      passwordController.clear();
+
+      CloudServices()
+          .saveDataToFirebase(1, '', context, 0, emailController.text);
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ChooseYourAvatar(
+                    mail: emailController.text.toString(),
+                  )));
+
       setState(() {
         showLoading = false;
       });
