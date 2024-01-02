@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/avatar_choose_page.dart/avatar_chose.dart';
 import 'package:flutter_application/feature/education/word_study_page.dart';
+import 'package:flutter_application/feature/profile_dart/Profile.dart';
+import 'package:flutter_application/feature/score_table/score_table.dart';
+import 'package:flutter_application/feature/signIn/signIn.dart';
 import 'package:flutter_application/feature/signup_form/signup_form_view.dart';
 import 'package:flutter_application/product/Vocabulary/animals_datas.dart';
 import 'package:flutter_application/product/initialize/application_start.dart';
@@ -31,6 +34,6 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           textTheme: GoogleFonts.martelSansTextTheme(),
         ),
-        home: const SignupFormView());
+        home: const MyAppp());
   }
 }
