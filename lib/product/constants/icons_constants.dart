@@ -58,6 +58,8 @@ enum IconConstants {
   startAgainIcon(
       'https://cdn-icons-png.flaticon.com/128/5469/5469310.png?uid=R132188031&semt=ais'),
   logOutIcon('https://cdn-icons-png.flaticon.com/128/4008/4008990.png'),
+  microphoneIcon(
+      'https://cdn-icons-png.flaticon.com/128/4596/4596814.png?semt=aiss'),
   icon_speaker('https://cdn-icons-png.flaticon.com/128/4859/4859079.png');
 
   final String value;
