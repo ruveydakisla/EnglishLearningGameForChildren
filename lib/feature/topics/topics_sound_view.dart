@@ -20,9 +20,9 @@ class _TopicsState extends State<TopicsSound> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstants.cremeDeMenth,
-      // appBar: AppBar(
-      //   backgroundColor: ColorConstants.ottomanRed,
-      // ),
+      appBar: AppBar(
+        backgroundColor: ColorConstants.actOfWrath,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(children: [
