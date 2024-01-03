@@ -35,6 +35,8 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           textTheme: GoogleFonts.martelSansTextTheme(),
         ),
-        home: const PronunciationGame());
+        home: PronunciationGame(
+          wordList: Animals.animals,
+        ));
   }
 }
