@@ -227,6 +227,9 @@ class _GameScreenState extends State<WordRiddle> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ColorConstants.actOfWrath,
+      ),
       body: Container(
         color: ColorConstants.cremeDeMenth,
         child: Center(
@@ -235,9 +238,6 @@ class _GameScreenState extends State<WordRiddle> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 50,
-                ),
                 Image.network(
                   currentImageUrl,
                   height: 120,
@@ -245,7 +245,7 @@ class _GameScreenState extends State<WordRiddle> {
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Wrap(
                   alignment: WrapAlignment.center,
@@ -257,8 +257,8 @@ class _GameScreenState extends State<WordRiddle> {
                       .entries
                       .map(
                         (entry) => Container(
-                          width: 50,
-                          height: 50,
+                          width: 45,
+                          height: 45,
                           margin: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
                             color: ColorConstants.darkKnight,
@@ -281,7 +281,7 @@ class _GameScreenState extends State<WordRiddle> {
                       )
                       .toList(),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 25),
                 Column(
                   children: [
                     Wrap(
@@ -341,7 +341,7 @@ class _GameScreenState extends State<WordRiddle> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
