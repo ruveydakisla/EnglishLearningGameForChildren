@@ -2,8 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/core/services/cloud_services.dart';
 import 'package:flutter_application/product/constants/color_constants.dart';
+import 'package:flutter_application/product/constants/icons_constants.dart';
 import 'package:flutter_application/product/constants/image_constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
+
+import '../signIn/signIn.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -66,6 +70,29 @@ class _ProfileState extends State<Profile> {
                           style: context.general.textTheme.bodyLarge!
                               .copyWith(color: ColorConstants.cremeDeMenth),
                         ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                            width: 100, child: ImageConstants.cupImg.toImg),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 100,
+                          width: 500,
+                          child: Card(
+                            color: Colors.amber.withAlpha(120),
+                            child: Center(
+                              child: Text(
+                                score.toString(),
+                                style: GoogleFonts.bungeeSpice().copyWith(
+                                    color: ColorConstants.darkKnight,
+                                    fontSize: 50),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     );
                   }
@@ -73,15 +100,36 @@ class _ProfileState extends State<Profile> {
               ),
               const SizedBox(height: 50),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Çıkış yap işlemleri
-                  // Örneğin:
-                  // FirebaseAuth.instance.signOut();
-                  Navigator.pop(
-                      context); // Profil sayfasından çıkış yaptıktan sonra geri dönmek istiyorsanız
-                },
-                child: const Text('Çıkış Yap'),
+              SizedBox(
+                width: 250,
+                height: 70,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorConstants.actOfWrath),
+                  onPressed: () async {
+                    // Çıkış yap işlemleri
+                    await FirebaseAuth.instance.signOut();
+
+                    // Navigator'ı kullanarak SignInPage'e yönlendirme
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignInPage()),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'Log out',
+                        style: context.general.textTheme.bodyLarge!.copyWith(
+                            color: ColorConstants.cremeDeMenth, fontSize: 20),
+                      ),
+                      SizedBox(
+                          height: 50, child: IconConstants.logOutIcon.toImg)
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
