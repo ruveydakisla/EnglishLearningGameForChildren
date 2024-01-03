@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_application/core/services/cloud_services.dart';
 import 'package:flutter_application/product/constants/icons_constants.dart';
 import 'package:flutter_application/product/constants/index.dart';
 import 'package:flutter_application/product/Vocabulary/color_datas.dart';
@@ -92,7 +96,9 @@ class _SoundGameState extends State<SoundGame> {
           actions: [
             TextButton(
               onPressed: () {
-                _resetGame(); // Oyun bittikten sonra sıfırla
+                CloudServices().addScoreToUser(
+                    FirebaseAuth.instance.currentUser!.email!, score);
+                _resetGame();
                 Navigator.of(context).pop(); // Dialog'u kapat
               },
               child: const Text('OK'),
@@ -106,6 +112,7 @@ class _SoundGameState extends State<SoundGame> {
   @override
   void initState() {
     super.initState();
+    Firebase.initializeApp();
     words = widget.words!.map((word) => word.name).toList();
     _startGame();
   }
