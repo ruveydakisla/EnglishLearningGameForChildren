@@ -10,6 +10,7 @@ import 'package:flutter_application/product/initialize/application_start.dart';
 import 'package:flutter_application/product/widget/cards/education_custom_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'feature/game/speaking_game.dart';
 import 'feature/navbar/top_navbar.dart';
 
 Future<void> main() async {
@@ -34,6 +35,6 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           textTheme: GoogleFonts.martelSansTextTheme(),
         ),
-        home: const MyAppp());
+        home: const PronunciationGame());
   }
 }
