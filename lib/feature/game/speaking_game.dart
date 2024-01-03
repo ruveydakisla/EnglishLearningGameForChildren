@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/product/constants/color_constants.dart';
+import 'package:flutter_application/product/constants/icons_constants.dart';
+import 'package:kartal/kartal.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -44,34 +47,64 @@ class _PronunciationGameState extends State<PronunciationGame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.cherryPearl,
       appBar: AppBar(
-        title: const Text('Pronunciation Game'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: ColorConstants.cremeDeMenth,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        backgroundColor: ColorConstants.darkKnight,
+        title: Text(
+          'Pronunciation Game',
+          style: context.general.textTheme.headlineSmall!
+              .copyWith(color: ColorConstants.cremeDeMenth),
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-              widget.wordList[currentIndex].url,
-              height: 200,
+            Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  side: const BorderSide(
+                      width: 5, color: ColorConstants.actOfWrath)),
+              child: Image.network(
+                widget.wordList[currentIndex].url,
+                height: 200,
+              ),
             ),
             const SizedBox(height: 20),
             Text(
-              'Söyle: ${widget.wordList[currentIndex].name}',
+              'Say: ${widget.wordList[currentIndex].name}',
               style: const TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _listen,
-              onLongPress: () {
-                startTime = DateTime.now();
-              },
-
-              // onLongPress: () {
-              //   endTime = DateTime.now();
-              //   _processResult();
-              // },
-              child: const Text('Mikrofon'),
+            SizedBox(
+              height: 170,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorConstants.cherryPearl,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(150),
+                        side: const BorderSide(
+                            color: ColorConstants.darkKnight))),
+                onPressed: _listen,
+                onLongPress: () {
+                  startTime = DateTime.now();
+                },
+                // onLongPressUp yerine onResult kullanılacak
+                // Bu olay, konuşma sona erdiğinde çağrılır
+                // Tanıma sonuçlarını kontrol etmek için kullanılır
+                // Result sıfır veya boş bir dize ise, kullanıcının konuşması tamamlandı demektir
+                child: IconConstants.microphoneIcon.toImg,
+              ),
             ),
           ],
         ),
@@ -81,14 +114,25 @@ class _PronunciationGameState extends State<PronunciationGame> {
 
   void _listen() async {
     if (!_speech.isListening) {
-      bool startListeningResult = await _speech.listen(
+      await _speech.listen(
         onResult: (result) {
-          print('Speech recognition result: $result');
+          String recognizedText = result.recognizedWords;
+          print('Speech recognition result: $recognizedText');
+          if (recognizedText.trim().isEmpty) {
+            // Kullanıcının konuşması tamamlandı, sonuçları işle
+            endTime = DateTime.now();
+            _speech.stop(); // Dinlemeyi burada durdur
+            _processResult();
+          }
         },
       );
 
-      if (!startListeningResult) {
-        print('Speech recognition failed to start');
+      // Kullanıcının konuşması tamamlanmasını beklemek için bir süre bekle
+      await Future.delayed(const Duration(seconds: 5));
+
+      // Bekleme sona erdiğinde, dinlemeyi durdurabilirsiniz
+      if (_speech.isListening) {
+        _speech.stop();
       }
     }
   }
