@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/product/constants/avatar_constants.dart';
@@ -64,6 +65,33 @@ class CloudServices {
       }
     } catch (e) {
       print('Error updating user data: $e');
+    }
+  }
+
+  Future<void> addScoreToUser(String mail, int score) async {
+    try {
+      await Firebase.initializeApp();
+      final firestore = FirebaseFirestore.instance;
+
+      // E-posta adresine göre belgeyi sorgula
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await firestore
+          .collection('users')
+          .where('mail', isEqualTo: mail)
+          .get();
+
+      // Eğer belge bulunursa, belgeyi güncelle
+      if (querySnapshot.docs.isNotEmpty) {
+        final docId = querySnapshot.docs.first.id;
+        await firestore.collection('users').doc(docId).update({
+          'score': FieldValue.increment(score),
+        });
+
+        print('User score updated successfully.');
+      } else {
+        print('User not found with the given email.');
+      }
+    } catch (e) {
+      print('Error updating user score: $e');
     }
   }
 
