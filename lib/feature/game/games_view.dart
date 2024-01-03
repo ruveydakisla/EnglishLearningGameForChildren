@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/feature/game/speaking_game.dart';
 import 'package:flutter_application/feature/topics/topics_riddle.dart';
 import 'package:flutter_application/feature/topics/topics_sound_view.dart';
+import 'package:flutter_application/product/Vocabulary/color_datas.dart';
 import 'package:flutter_application/product/constants/index.dart';
 import 'package:flutter_application/product/widget/cards/custom_games_card.dart';
 
@@ -51,9 +53,11 @@ class _GamesViewState extends State<GamesView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomGamesCard(
-                      text: 'dsfsd',
-                      img: ImageConstants.iLovePlay.toImg,
-                      gamewidget: const TopicsSound()),
+                      text: 'Speaking Game',
+                      img: ImageConstants.speakingGameImg.toImg,
+                      gamewidget: PronunciationGame(
+                        wordList: Colorr.colors,
+                      )),
                   const SizedBox(
                     width: 5,
                   ),
