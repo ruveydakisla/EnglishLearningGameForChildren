@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone permissions are required for speech recognition.</string>
 	<key>CFBundleDisplayName</key>
 	<string>Flutter Application</string>
 	<key>CFBundleExecutable</key>
