@@ -25,7 +25,7 @@ class AuthServices {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Login successfully')));
-      Navigator.push(
+      Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) =>
