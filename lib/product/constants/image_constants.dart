@@ -43,6 +43,8 @@ enum ImageConstants {
       'https://img.freepik.com/free-vector/fruits-collection-cartoon-vector-icon-illustration-food-nature-icon-concept-isolated-premium-vector_138676-8350.jpg?semt=sph'),
   vegetablesImg(
       'https://img.freepik.com/free-vector/vegetables-icons-set_1284-21276.jpg?semt=sph'),
+  speakingGameImg(
+      'https://img.freepik.com/premium-vector/children-activity-concept_118813-5949.jpg?semt=ais'),
 
   avatar1('https://cdn-icons-png.flaticon.com/128/9043/9043008.png?semt=ais'),
   cupImg('https://cdn-icons-png.flaticon.com/128/3112/3112946.png?semt=ais'),
