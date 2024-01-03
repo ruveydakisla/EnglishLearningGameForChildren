@@ -45,6 +45,10 @@ dependencies:
   #fonts
   google_fonts: ^6.1.0
 
+
+  #speaking Game
+  speech_to_text: ^6.5.1
+
   #caching 
   shared_preferences: ^2.2.2
 
