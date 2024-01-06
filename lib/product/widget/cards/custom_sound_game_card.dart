@@ -18,25 +18,23 @@ class _CustomSoundGameCardState extends State<CustomSoundGameCard> {
     return InkWell(
       onTap: widget.onTap ?? () {},
       child: SizedBox(
-        width: widget.size ?? 100,
-        height: widget.size ?? 100,
-        child: Card(
-          child: Stack(
-            children: [
-              widget.img,
-              Positioned.fill(
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    highlightColor:
-                        Colors.transparent, // Tıklama efekti arka plan rengi
-                    borderRadius: BorderRadius.circular(8.0),
-                    onTap: widget.onTap,
-                  ),
+        width: widget.size ?? 80,
+        height: widget.size ?? 80,
+        child: Stack(
+          children: [
+            widget.img,
+            Positioned.fill(
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  highlightColor:
+                      Colors.transparent, // Tıklama efekti arka plan rengi
+                  borderRadius: BorderRadius.circular(8.0),
+                  onTap: widget.onTap,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
