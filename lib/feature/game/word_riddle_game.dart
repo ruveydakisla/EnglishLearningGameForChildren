@@ -202,9 +202,9 @@ class _GameScreenState extends State<WordRiddle> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text("Oyun Bitti!"),
+            title: const Text("Game End!"),
             content: Text(
-                "Tüm kelimeleri doğru bildiniz!\nSüre: ${gameDuration.inSeconds} saniye ${gameDuration.inMilliseconds % 1000} milisaniye"),
+                "Tüm kelimeleri doğru bildiniz!\nSüre: ${gameDuration.inSeconds} saniye"),
             actions: [
               ElevatedButton(
                 onPressed: () {
