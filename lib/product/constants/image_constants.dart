@@ -48,8 +48,11 @@ enum ImageConstants {
 
   avatar1('https://cdn-icons-png.flaticon.com/128/9043/9043008.png?semt=ais'),
   cupImg('https://cdn-icons-png.flaticon.com/128/3112/3112946.png?semt=ais'),
+  signUpImg(
+      'https://img.freepik.com/free-vector/hand-drawn-english-school-background_23-2149483339.jpg?size=626&ext=jpg'),
+
   signInImg(
-      'https://img.freepik.com/free-vector/hand-drawn-english-school-background_23-2149496629.jpg?t=st=1703785329~exp=1703785929~hmac=f822067868a5867e5b9790ab513d7eff5f9c0a52756d17db9a88f0b22fc547e4'),
+      'https://img.freepik.com/free-vector/flat-design-english-school-illustration_23-2149486193.jpg?size=626&ext=jpg'),
   soundGame(
       'https://img.freepik.com/free-vector/illustrated-k-pop-music-concept_23-2148633628.jpg?size=626&ext=jpg');
 
