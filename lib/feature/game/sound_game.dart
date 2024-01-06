@@ -91,7 +91,7 @@ class _SoundGameState extends State<SoundGame> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Game Over'),
+          title: const Text('Game End'),
           content: Text('Your score: $score'),
           actions: [
             TextButton(
@@ -127,12 +127,12 @@ class _SoundGameState extends State<SoundGame> {
             },
             icon: const Icon(Icons.arrow_back_ios)),
         centerTitle: true,
-        backgroundColor: ColorConstants.cherryPearl,
+        backgroundColor: ColorConstants.cremeDeMenth,
       ),
-      backgroundColor: ColorConstants.cherryPearl,
+      backgroundColor: ColorConstants.cremeDeMenth,
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
               'Please choose correct Image',
@@ -150,6 +150,8 @@ class _SoundGameState extends State<SoundGame> {
                 width: 170,
                 height: 170,
                 child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorConstants.cremeDeMenth),
                     onPressed: () {
                       SoundService().play(word);
                     },
@@ -158,10 +160,11 @@ class _SoundGameState extends State<SoundGame> {
               height: 40,
             ),
             Wrap(
+              alignment: WrapAlignment.center,
               children: widget.words!
                   .map((word) => CustomSoundGameCard(
                         img: Image.network(word.url),
-                        size: widget.words!.length > 12 ? 100 : 120,
+                        size: widget.words!.length > 12 ? 90 : 100,
                         onTap: () {
                           _checkAnswer(word.name);
                         },
