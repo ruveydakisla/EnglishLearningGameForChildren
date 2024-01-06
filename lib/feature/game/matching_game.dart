@@ -72,7 +72,7 @@ class _GamePageState extends State<MatchingGame> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Oyun Bitti'),
+        title: const Text('Game end'),
         content: Text(
             'Toplam süre: $elapsedTime saniye\nEşleştirilen: $matchedCount\nPuanınız: $totalScore'),
         actions: [
@@ -143,9 +143,9 @@ class _GamePageState extends State<MatchingGame> {
           isVisibleList[firstIndex] = false;
           isVisibleList[secondIndex] = false;
           totalScore += 10;
-          matchedCount++; // Her eşleşme için 10 puan
+          matchedCount++;
           if (matchedCount == words.length / 2) {
-            endGame(); // Eğer bütün eşleştirmeler tamamlandıysa oyunu bitir
+            endGame();
           }
         });
       } else {
