@@ -3,8 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/product/constants/avatar_constants.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class CloudServices {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
   Future<void> saveDataToFirebase(int selectedAvatarIndex, String text,
       BuildContext context, int score, String mail) async {
     try {
@@ -36,6 +39,48 @@ class CloudServices {
       }
     } catch (e) {
       print('Error saving data to Firebase: $e');
+    }
+  }
+
+  Future<User?> signUpWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      if (googleSignInAccount == null) return null;
+
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      UserCredential authResult = await _auth.signInWithCredential(credential);
+      return authResult.user;
+    } catch (e) {
+      print("Google ile kayıt olunurken hata oluştu: $e");
+      return null;
+    }
+  }
+
+  Future<User?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      if (googleSignInAccount == null) return null;
+
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      UserCredential authResult = await _auth.signInWithCredential(credential);
+      return authResult.user;
+    } catch (e) {
+      print("Google ile giriş yapılırken hata oluştu: $e");
+      return null;
     }
   }
 
