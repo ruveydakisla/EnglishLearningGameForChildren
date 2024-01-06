@@ -52,11 +52,13 @@ dependencies:
   #caching 
   shared_preferences: ^2.2.2
 
+  google_sign_in: ^6.2.1 
   flutter_riverpod: ^2.4.9
   kartal: ^3.5.0
   equatable: ^2.0.5
   flame: ^1.13.1
   audioplayers: ^5.2.1
+  text_to_speech: ^0.2.3
 
 
 
