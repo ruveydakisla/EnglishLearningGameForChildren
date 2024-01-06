@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/core/services/cloud_services.dart';
 import 'package:flutter_application/feature/signIn/signIn.dart';
 import 'package:flutter_application/feature/signup_form/signup_form_view.dart';
 import 'package:flutter_application/product/constants/icons_constants.dart';
 import 'package:flutter_application/product/constants/index.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 
 class SignupView extends StatefulWidget {
@@ -26,7 +28,7 @@ class _SignupViewState extends State<SignupView> {
           children: [
             Text(
               StringConstants.appName,
-              style: context.general.textTheme.headlineMedium,
+              style: GoogleFonts.pacifico(fontSize: 30),
             ),
             sizedBoxSmall,
             Text(
@@ -37,12 +39,11 @@ class _SignupViewState extends State<SignupView> {
             ImageConstants.iLovePlay.toImg,
             sizedBoxSmall,
             _SignUpButton(
-                text: StringConstants.continueWithGoogle,
-                icon: IconConstants.googleIcon.toImg),
-            sizedBoxSmall,
-            _SignUpButton(
-              icon: IconConstants.facebookIcon.toImg,
-              text: StringConstants.continueWithFacebook,
+              text: StringConstants.continueWithGoogle,
+              icon: IconConstants.googleIcon.toImg,
+              onTap: () {
+                CloudServices().signUpWithGoogle();
+              },
             ),
             sizedBoxSmall,
             _SignUpButton(
