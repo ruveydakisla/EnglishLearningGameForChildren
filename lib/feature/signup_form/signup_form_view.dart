@@ -7,6 +7,9 @@ import 'package:flutter_application/feature/avatar_choose_page.dart/avatar_chose
 import 'package:flutter_application/product/constants/string_constants.dart';
 import 'package:flutter_application/product/widget/buttons/custom_elevated_button.dart';
 import 'package:flutter_application/product/widget/textfields/text_field.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../product/constants/image_constants.dart';
 
 class SignupFormView extends StatefulWidget {
   const SignupFormView({super.key});
@@ -40,10 +43,12 @@ class _SignupFormViewState extends State<SignupFormView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               StringConstants.appName,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: GoogleFonts.sevillana(fontSize: 30),
             ),
+            const SizedBox(height: 20),
+            ImageConstants.signUpImg.toImg,
             const SizedBox(height: 20),
             const Text(
               "It's easier to sing up new",
