@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/core/services/cloud_services.dart';
-import 'package:flutter_application/product/constants/color_constants.dart';
-import 'package:flutter_application/product/constants/icons_constants.dart';
-import 'package:flutter_application/product/constants/image_constants.dart';
+import 'package:flutter_application/product/constants/index.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 

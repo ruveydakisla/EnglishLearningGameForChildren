@@ -1,13 +1,10 @@
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/core/services/auth_services.dart';
 import 'package:flutter_application/core/services/cloud_services.dart';
-import 'package:flutter_application/feature/navbar/top_navbar.dart';
 import 'package:flutter_application/feature/signup/signup_view.dart';
-import 'package:flutter_application/product/constants/icons_constants.dart';
 import 'package:flutter_application/product/constants/index.dart';
-import 'package:flutter_application/product/widget/buttons/custom_elevated_button.dart';
-import 'package:flutter_application/product/widget/textfields/text_field.dart';
+import 'package:flutter_application/product/widget/buttons/index.dart';
+import 'package:flutter_application/product/widget/textfields/index.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 
@@ -23,10 +20,8 @@ class _SignInPageState extends _SignInPageAbstract {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          StringConstants.appName,
-          style: GoogleFonts.sevillana(),
-        ),
+        title: Text(StringConstants.appName,
+            style: GoogleFonts.pacifico(fontSize: 25)),
         centerTitle: true,
       ),
       backgroundColor: ColorConstants.white,
@@ -60,35 +55,11 @@ class _SignInPageState extends _SignInPageAbstract {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                height: 50,
-                width: 300,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          side: const BorderSide(
-                              color: ColorConstants.ottomanRed, width: 3))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        'Sign In with Google',
-                        style: context.general.textTheme.bodyMedium!
-                            .copyWith(color: Colors.black),
-                      ),
-                      SizedBox(width: 40, child: IconConstants.googleIcon.toImg)
-                    ],
-                  ),
-                  onPressed: () {
-                    CloudServices().signUpWithGoogle();
-                  },
-                ),
-              ),
+              const SignInButton(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Don\'t you have account?'),
+                  const Text(StringConstants.dontHaveAccount),
                   TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
@@ -103,6 +74,41 @@ class _SignInPageState extends _SignInPageAbstract {
           ),
         ),
       ]),
+    );
+  }
+}
+
+class SignInButton extends StatelessWidget {
+  const SignInButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      width: 300,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+                side: const BorderSide(
+                    color: ColorConstants.ottomanRed, width: 3))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              StringConstants.signInWithGoogle,
+              style: context.general.textTheme.bodyMedium!
+                  .copyWith(color: Colors.black),
+            ),
+            SizedBox(width: 40, child: IconConstants.googleIcon.toImg)
+          ],
+        ),
+        onPressed: () {
+          CloudServices().signUpWithGoogle();
+        },
+      ),
     );
   }
 }

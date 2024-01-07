@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/product/Vocabulary/animals_datas.dart';
-import 'package:flutter_application/product/Vocabulary/body_section_datas.dart';
-import 'package:flutter_application/product/Vocabulary/clothes_datas.dart';
-import 'package:flutter_application/product/Vocabulary/color_datas.dart';
-import 'package:flutter_application/product/Vocabulary/fruits_datas.dart';
-import 'package:flutter_application/product/Vocabulary/numbers_datas.dart';
-import 'package:flutter_application/product/Vocabulary/school_stuff_datas.dart';
-import 'package:flutter_application/product/Vocabulary/shapes_datas.dart';
-import 'package:flutter_application/product/Vocabulary/vegetables.dart';
-import 'package:flutter_application/product/Vocabulary/vehicle_datas.dart';
-import 'package:flutter_application/product/Vocabulary/weather_datas.dart';
-import 'package:flutter_application/product/constants/icons_constants.dart';
-import 'package:flutter_application/product/constants/index.dart';
+import 'package:flutter_application/product/Vocabulary/index.dart';
+
+import '../../product/constants/index.dart';
 
 class Topic {
   final String name;

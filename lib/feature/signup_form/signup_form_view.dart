@@ -1,15 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/core/services/auth_services.dart';
 import 'package:flutter_application/core/services/cloud_services.dart';
 import 'package:flutter_application/feature/avatar_choose_page.dart/avatar_chose.dart';
-import 'package:flutter_application/product/constants/string_constants.dart';
-import 'package:flutter_application/product/widget/buttons/custom_elevated_button.dart';
-import 'package:flutter_application/product/widget/textfields/text_field.dart';
+import 'package:flutter_application/product/constants/index.dart';
+import 'package:flutter_application/product/widget/buttons/index.dart';
+import 'package:flutter_application/product/widget/textfields/index.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../product/constants/image_constants.dart';
 
 class SignupFormView extends StatefulWidget {
   const SignupFormView({super.key});
@@ -26,7 +22,6 @@ class _SignupFormViewState extends State<SignupFormView> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -36,42 +31,44 @@ class _SignupFormViewState extends State<SignupFormView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign Up"),
+        title: const Text(StringConstants.signUp),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              StringConstants.appName,
-              style: GoogleFonts.sevillana(fontSize: 30),
-            ),
-            const SizedBox(height: 20),
-            ImageConstants.signUpImg.toImg,
-            const SizedBox(height: 20),
-            const Text(
-              "It's easier to sing up new",
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
-            CustomTextField(
-              type: TextInputType.emailAddress,
-              labelText: StringConstants.email,
-              controller: emailController,
-            ),
-            const SizedBox(height: 20),
-            CustomTextField(
-              obsecure: true,
-              labelText: StringConstants.password,
-              controller: passwordController,
-            ),
-            const SizedBox(height: 20),
-            CustomElevatedButton(
-              buttonText: StringConstants.signUp,
-              onPressed: registerUser,
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                StringConstants.appName,
+                style: GoogleFonts.sevillana(fontSize: 30),
+              ),
+              const SizedBox(height: 20),
+              ImageConstants.signUpImg.toImg,
+              const SizedBox(height: 20),
+              const Text(
+                "It's easier to sign up now",
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 20),
+              CustomTextField(
+                type: TextInputType.emailAddress,
+                labelText: StringConstants.email,
+                controller: emailController,
+              ),
+              const SizedBox(height: 20),
+              CustomTextField(
+                obsecure: true,
+                labelText: StringConstants.password,
+                controller: passwordController,
+              ),
+              const SizedBox(height: 20),
+              CustomElevatedButton(
+                buttonText: StringConstants.signUp,
+                onPressed: registerUser,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -92,11 +89,13 @@ class _SignupFormViewState extends State<SignupFormView> {
           .saveDataToFirebase(1, '', context, 0, emailController.text);
 
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ChooseYourAvatar(
-                    mail: emailController.text.toString(),
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChooseYourAvatar(
+            mail: emailController.text.toString(),
+          ),
+        ),
+      );
 
       setState(() {
         showLoading = false;

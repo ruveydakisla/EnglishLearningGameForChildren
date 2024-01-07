@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../product/constants/color_constants.dart';
 import '../game/matching_game.dart';
 import 'topics.dart';
-import 'topics_custom_card.dart';
+import '../../product/widget/cards/index.dart';
 
 class TopicsMatching extends StatefulWidget {
   const TopicsMatching({super.key});

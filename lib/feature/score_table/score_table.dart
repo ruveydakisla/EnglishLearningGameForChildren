@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/product/constants/color_constants.dart';
+import 'package:flutter_application/product/constants/icons_constants.dart';
 import 'package:kartal/kartal.dart';
 
 class AllUsersPage extends StatefulWidget {
@@ -39,9 +40,9 @@ class _AllUsersPageState extends State<AllUsersPage> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
-              return Text('Hata: ${snapshot.error}');
+              return Text('Error ${snapshot.error}');
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Text('Kullanıcı bulunamadı');
+              return const Text("User Didn't find");
             } else {
               final List<Map<String, dynamic>> users = snapshot.data!;
               return ListView.builder(
@@ -52,14 +53,13 @@ class _AllUsersPageState extends State<AllUsersPage> {
                   final String avatarUrl = user['avatar'] ?? '';
                   final int score = user['score'] ?? 0;
 
-                  // Madalya ikonu URL'leri
                   final List<String> medalIcons = [
-                    'https://cdn-icons-png.flaticon.com/128/3333/3333397.png?semt=ais', // Altın Madalya
-                    'https://cdn-icons-png.flaticon.com/128/4844/4844331.png', // Gümüş Madalya
-                    'https://cdn-icons-png.flaticon.com/128/6666/6666092.png', // Bronz Madalya
+                    IconConstants.goldMedal.value,
+                    IconConstants.silverMedal.value,
+                    IconConstants.bronzeMedal.value,
                   ];
 
-                  // Kullanıcının madalya ikonunu belirle
+                  //medal icon show
                   Widget medalIcon;
                   if (index == 0) {
                     medalIcon = Image.network(medalIcons[0]);
@@ -68,8 +68,9 @@ class _AllUsersPageState extends State<AllUsersPage> {
                   } else if (index == 2) {
                     medalIcon = Image.network(medalIcons[2]);
                   } else {
-                    medalIcon =
-                        const SizedBox(); // 4. sıradan sonrakilere madalya yok
+                    medalIcon = const SizedBox(
+                      width: 35,
+                    ); //
                   }
 
                   return ScoreTable(
@@ -125,7 +126,6 @@ class ScoreTable extends StatelessWidget {
                   Text(score.toString()),
                 ],
               ),
-              // Kullanıcının madalya ikonunu göster
               medalIcon,
             ],
           ),

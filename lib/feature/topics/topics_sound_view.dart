@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/feature/game/matching_game.dart';
 import 'package:flutter_application/feature/game/sound_game.dart';
 import 'package:flutter_application/feature/topics/topics.dart';
-import 'package:flutter_application/feature/topics/topics_custom_card.dart';
-import 'package:flutter_application/product/constants/icons_constants.dart';
+import 'package:flutter_application/product/widget/cards/index.dart';
 import 'package:flutter_application/product/constants/index.dart';
-import 'package:kartal/kartal.dart';
 
 class TopicsSound extends StatefulWidget {
   const TopicsSound({super.key});

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/game/word_riddle_game.dart';
-
-import '../../product/constants/color_constants.dart';
-import '../game/matching_game.dart';
+import '../../product/constants/index.dart';
 import 'topics.dart';
-import 'topics_custom_card.dart';
+import '../../product/widget/cards/index.dart';
 
 class TopicsRiddle extends StatefulWidget {
   const TopicsRiddle({super.key});

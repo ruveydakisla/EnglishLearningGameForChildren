@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart' show GoogleProvider;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
