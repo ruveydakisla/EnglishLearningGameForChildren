@@ -29,6 +29,9 @@ enum IconConstants {
 
   clothesIcon(
       'https://cdn-icons-png.flaticon.com/128/2954/2954918.png?semt=ais'),
+  goldMedal('https://cdn-icons-png.flaticon.com/128/3333/3333397.png?semt=ais'),
+  silverMedal('https://cdn-icons-png.flaticon.com/128/4844/4844331.png'),
+  bronzeMedal('https://cdn-icons-png.flaticon.com/128/6666/6666092.png'),
   shapesIcon(
       'https://cdn-icons-png.flaticon.com/128/8091/8091534.png?semt=ais'),
   numbersIcon('https://cdn-icons-png.flaticon.com/128/709/709388.png'),

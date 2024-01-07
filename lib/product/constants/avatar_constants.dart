@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 enum AvatarConstants {
   avatar1,
   avatar2,
@@ -57,7 +55,7 @@ extension AvatarConstantsExtension on AvatarConstants {
       case 8:
         return AvatarConstants.avatar9.value;
       default:
-        return ''; // Uygun bir varsayılan değeri ekleyebilirsiniz.
+        return '';
     }
   }
 }
