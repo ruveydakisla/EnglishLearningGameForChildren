@@ -1,18 +1,7 @@
-// ... Diğer importlar ...
-
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_application/product/constants/color_constants.dart';
-import 'package:kartal/kartal.dart';
-
-import '../../product/Vocabulary/color_datas.dart';
-import '../../product/constants/icons_constants.dart';
-
-// ... Diğer importlar ...
-
-// ... Diğer importlar ...
+import 'package:flutter_application/product/constants/index.dart';
+import '../../product/Vocabulary/index.dart';
 
 class WordRiddle extends StatefulWidget {
   final List<Word>? wordList;
@@ -22,7 +11,201 @@ class WordRiddle extends StatefulWidget {
   _GameScreenState createState() => _GameScreenState();
 }
 
-class _GameScreenState extends State<WordRiddle> {
+class _GameScreenState extends WordRiddlee {
+  @override
+  Widget build(BuildContext context) {
+    const sizedBox30 = SizedBox(
+      height: 30,
+    );
+    const sizedBox25 = SizedBox(height: 25);
+    const sizedBox5 = SizedBox(
+      width: 5,
+    );
+    var removeIcon = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        SizedBox(
+          width: PageSizes.elevetadButtonRemove,
+          height: PageSizes.elevetadButtonRemove,
+          child: IconButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+            ),
+            onPressed: () {
+              deleteLetter();
+            },
+            icon: IconConstants.removeIcon.toImg,
+          ),
+        ),
+      ],
+    );
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ColorConstants.actOfWrath,
+      ),
+      body: Container(
+        color: ColorConstants.cremeDeMenth,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.network(
+                  currentImageUrl,
+                  height: PageSizes.imgSize,
+                  width: PageSizes.imgSize,
+                  fit: BoxFit.cover,
+                ),
+                sizedBox30,
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: PageSizes.wrapSpacing,
+                  runSpacing: PageSizes.wrapRunSpacing,
+                  children: targetWord
+                      .split('')
+                      .asMap()
+                      .entries
+                      .map(
+                        (entry) => Container(
+                          width: PageSizes.containerWidth,
+                          height: PageSizes.containerHeight,
+                          margin: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: ColorConstants.darkKnight,
+                            border:
+                                Border.all(color: ColorConstants.cherryPearl),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Center(
+                            child: Text(
+                              entry.key < filledLetters.length
+                                  ? filledLetters[entry.key]
+                                  : '',
+                              style: TextStyle(
+                                  fontSize: PageSizes.fontSize,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorConstants.white),
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+                sizedBox25,
+                Column(
+                  children: [
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: PageSizes.wrapSpacing,
+                      runSpacing: PageSizes.wrapRunSpacing,
+                      children: StringConstants.alphabet.map((letter) {
+                        Color randomColor = Color(
+                                (Random().nextDouble() * 0xFFFFFF).toInt() << 0)
+                            .withOpacity(1.0);
+
+                        return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: randomColor,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              for (int i = 0; i < targetWord.length; i++) {
+                                if (filledLetters[i].isEmpty) {
+                                  filledLetters[i] = letter;
+                                  break;
+                                }
+                              }
+                            });
+                          },
+                          child: Text(
+                            letter,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(color: Colors.white),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                    removeIcon,
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: PageSizes.elevetadButtonCheckWidth,
+                      height: PageSizes.elevetadButtonHeight,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorConstants.darkKnight),
+                        onPressed: () {
+                          checkWord();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              StringConstants.check,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(color: ColorConstants.white),
+                            ),
+                            SizedBox(
+                              width: PageSizes.checkIconWidth,
+                            ),
+                            IconConstants.checkIcon.toImg
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: PageSizes.elevetadButtonAgainWidth,
+                      height: PageSizes.elevetadButtonHeight,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorConstants.darkKnight),
+                        onPressed: () {
+                          resetGame();
+                        },
+                        child: Row(
+                          children: [
+                            Text(
+                              StringConstants.startAgain,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(color: ColorConstants.white),
+                            ),
+                            sizedBox5,
+                            SizedBox(
+                              width: PageSizes.iconWidth,
+                              height: PageSizes.iconWidth,
+                              child: IconConstants.startAgainIcon.toImg,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+abstract class WordRiddlee extends State<WordRiddle> {
   String targetWord = '';
   String currentImageUrl = '';
   List<String> filledLetters = [];
@@ -31,35 +214,6 @@ class _GameScreenState extends State<WordRiddle> {
   Stopwatch stopwatch = Stopwatch();
   int currentWordIndex = 0;
   bool isGameStarted = false;
-
-  final List<String> alphabet = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'W',
-    'X',
-    'Y',
-    'Z'
-  ];
 
   @override
   void initState() {
@@ -116,39 +270,20 @@ class _GameScreenState extends State<WordRiddle> {
         } else {
           endGame();
         }
-      } else {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Tebrikler!"),
-              content: Text("Doğru kelimeyi buldunuz: $targetWord"),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    resetGame();
-                  },
-                  child: const Text("Sonraki Kelimeye Geç"),
-                ),
-              ],
-            );
-          },
-        );
       }
     } else {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text("Üzgünüz!"),
-            content: const Text("Maalesef, yanlış tahmin."),
+            title: const Text(StringConstants.sorry),
+            content: const Text(StringConstants.wrongGuess),
             actions: [
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text("Tamam"),
+                child: const Text(StringConstants.ok),
               ),
             ],
           );
@@ -202,15 +337,15 @@ class _GameScreenState extends State<WordRiddle> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text("Game End!"),
+            title: const Text(StringConstants.gameEnd),
             content: Text(
-                "Tüm kelimeleri doğru bildiniz!\nSüre: ${gameDuration.inSeconds} saniye"),
+                "${StringConstants.gameDuration} ${gameDuration.inSeconds} ${StringConstants.second}"),
             actions: [
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text("Tamam"),
+                child: const Text(StringConstants.ok),
               ),
             ],
           );
@@ -223,191 +358,20 @@ class _GameScreenState extends State<WordRiddle> {
     final random = Random();
     return widget.wordList![currentWordIndex];
   }
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorConstants.actOfWrath,
-      ),
-      body: Container(
-        color: ColorConstants.cremeDeMenth,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.network(
-                  currentImageUrl,
-                  height: 120,
-                  width: 120,
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 8.0,
-                  runSpacing: 8.0,
-                  children: targetWord
-                      .split('')
-                      .asMap()
-                      .entries
-                      .map(
-                        (entry) => Container(
-                          width: 45,
-                          height: 45,
-                          margin: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: ColorConstants.darkKnight,
-                            border:
-                                Border.all(color: ColorConstants.cherryPearl),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Center(
-                            child: Text(
-                              entry.key < filledLetters.length
-                                  ? filledLetters[entry.key]
-                                  : '',
-                              style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorConstants.white),
-                            ),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
-                const SizedBox(height: 25),
-                Column(
-                  children: [
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      spacing: 8.0,
-                      runSpacing: 8.0,
-                      children: alphabet.map((letter) {
-                        Color randomColor = Color(
-                                (Random().nextDouble() * 0xFFFFFF).toInt() << 0)
-                            .withOpacity(1.0);
+class PageSizes {
+  static double imgSize = 120;
+  static double wrapSpacing = 8.0;
+  static double wrapRunSpacing = 8.0;
+  static double containerWidth = 45;
+  static double containerHeight = 45;
+  static double elevetadButtonCheckWidth = 220;
+  static double elevetadButtonAgainWidth = 170;
+  static double elevetadButtonHeight = 60;
+  static double elevetadButtonRemove = 70;
+  static double iconWidth = 20;
+  static double checkIconWidth = 30;
 
-                        return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            backgroundColor: randomColor,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              for (int i = 0; i < targetWord.length; i++) {
-                                if (filledLetters[i].isEmpty) {
-                                  filledLetters[i] = letter;
-                                  break;
-                                }
-                              }
-                            });
-                          },
-                          child: Text(
-                            letter,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium
-                                ?.copyWith(color: Colors.white),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          width: 70,
-                          height: 70,
-                          child: IconButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
-                            onPressed: () {
-                              deleteLetter();
-                            },
-                            icon: IconConstants.removeIcon.toImg,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: 220,
-                      height: 60,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: ColorConstants.darkKnight),
-                        onPressed: () {
-                          checkWord();
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Check",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(color: ColorConstants.white),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            IconConstants.checkIcon.toImg
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 170,
-                      height: 60,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: ColorConstants.darkKnight),
-                        onPressed: () {
-                          resetGame();
-                        },
-                        child: Row(
-                          children: [
-                            Text(
-                              "Start Again",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(color: ColorConstants.white),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            SizedBox(
-                              width: 30,
-                              child: IconConstants.startAgainIcon.toImg,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  static double fontSize = 18;
 }
