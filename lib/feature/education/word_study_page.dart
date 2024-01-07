@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/product/constants/color_constants.dart';
-import 'package:flutter_application/product/constants/icons_constants.dart';
-import 'package:flutter_application/product/constants/image_constants.dart';
+import 'package:flutter_application/product/constants/index.dart';
 import 'package:flutter_application/product/services/sound_service.dart';
-
 import '../../product/Vocabulary/color_datas.dart';
 
 class WordStudy extends StatefulWidget {
