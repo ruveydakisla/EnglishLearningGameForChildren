@@ -1,11 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/core/services/cloud_services.dart';
 import 'package:flutter_application/feature/signIn/signIn.dart';
-import 'package:flutter_application/product/constants/avatar_constants.dart';
-import 'package:flutter_application/product/constants/color_constants.dart';
-import 'package:flutter_application/product/widget/textfields/text_field.dart';
+import 'package:flutter_application/product/constants/index.dart';
 import 'package:kartal/kartal.dart';
 
 class ChooseYourAvatar extends StatefulWidget {

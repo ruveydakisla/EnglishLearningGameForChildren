@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/product/constants/color_constants.dart';
+import 'package:flutter_application/product/constants/index.dart';
 import 'package:flutter_application/product/widget/cards/education_custom_card.dart';
 import 'word_list.dart';
 

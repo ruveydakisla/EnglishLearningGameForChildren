@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/education/educations.dart';
 import 'package:flutter_application/feature/game/games_view.dart';
-import 'package:flutter_application/feature/profile_dart/Profile.dart';
+import 'package:flutter_application/feature/profile_dart/profile.dart';
 import 'package:flutter_application/feature/score_table/score_table.dart';
-import 'package:flutter_application/product/constants/color_constants.dart';
+import 'package:flutter_application/product/constants/index.dart';
 
 class MyAppp extends StatelessWidget {
   const MyAppp({super.key});
