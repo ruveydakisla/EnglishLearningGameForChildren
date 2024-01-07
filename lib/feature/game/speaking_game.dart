@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/product/constants/color_constants.dart';
-import 'package:flutter_application/product/constants/icons_constants.dart';
+import 'package:flutter_application/product/constants/index.dart';
 import 'package:kartal/kartal.dart';
-import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-
-import '../../product/Vocabulary/color_datas.dart';
+import '../../product/Vocabulary/index.dart';
 
 class PronunciationGame extends StatefulWidget {
   final List<Word> wordList;
@@ -13,6 +10,7 @@ class PronunciationGame extends StatefulWidget {
   const PronunciationGame({super.key, required this.wordList});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PronunciationGameState createState() => _PronunciationGameState();
 }
 
