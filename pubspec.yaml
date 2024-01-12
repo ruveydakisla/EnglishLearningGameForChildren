@@ -58,7 +58,7 @@ dependencies:
   equatable: ^2.0.5
   flame: ^1.13.1
   audioplayers: ^5.2.1
-  
+  permission_handler: ^10.3.1
 
 
 
