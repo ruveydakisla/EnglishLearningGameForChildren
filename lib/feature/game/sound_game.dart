@@ -1,18 +1,14 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_application/core/services/cloud_services.dart';
-import 'package:flutter_application/product/constants/icons_constants.dart';
 import 'package:flutter_application/product/constants/index.dart';
-import 'package:flutter_application/product/Vocabulary/color_datas.dart';
+import 'package:flutter_application/product/Vocabulary/index.dart';
 import 'package:flutter_application/product/services/sound_service.dart';
-import 'package:flutter_application/product/widget/cards/custom_sound_game_card.dart';
+import 'package:flutter_application/product/widget/cards/index.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kartal/kartal.dart';
 
 class SoundGame extends StatefulWidget {
   final List<Word>? words;
@@ -66,7 +62,7 @@ class _SoundGameState extends State<SoundGame> {
       word = selectedWord;
     });
     await player.play(UrlSource(
-        'https://translate.google.com/translate_tts?ie=UTF-8&q=$currentWord&tl=en&client=tw-ob')); // Sesi çal
+        'https://translate.google.com/translate_tts?ie=UTF-8&q=$currentWord&tl=en&client=tw-ob'));
   }
 
   void _checkAnswer(String selectedWord) {
@@ -112,7 +108,6 @@ class _SoundGameState extends State<SoundGame> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp();
     words = widget.words!.map((word) => word.name).toList();
     _startGame();
   }

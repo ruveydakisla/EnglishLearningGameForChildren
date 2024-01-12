@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/product/constants/index.dart';
 import 'package:kartal/kartal.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../../product/Vocabulary/index.dart';
 
@@ -15,12 +16,22 @@ class PronunciationGame extends StatefulWidget {
 }
 
 class _PronunciationGameState extends State<PronunciationGame> {
+  Future<void> _checkPermission() async {
+    // Mikrofon izni kontrol ediliyor
+    var status = await Permission.microphone.status;
+
+    if (status.isDenied) {
+      // Eğer izin reddedilmişse, kullanıcıdan izin isteniyor
+      await Permission.microphone.request();
+    }
+  }
+
   final stt.SpeechToText _speech = stt.SpeechToText();
 
   int currentIndex = 0;
   DateTime? startTime;
   DateTime? endTime;
-
+  bool isListening = false;
   @override
   void initState() {
     super.initState();
@@ -39,6 +50,43 @@ class _PronunciationGameState extends State<PronunciationGame> {
 
     if (!available) {
       print('Speech recognition not available');
+    }
+  }
+
+  void _startListening() async {
+    var status = await Permission.microphone.request();
+
+    if (status.isGranted) {
+      if (!_speech.isListening) {
+        setState(() {
+          isListening = true;
+          startTime = DateTime.now(); // Konuşma başladığında zamanı kaydet
+        });
+
+        await _speech.listen(
+          onResult: (result) {
+            String recognizedText = result.recognizedWords;
+            print('Speech recognition result: $recognizedText');
+            // Eğer tanınan metin boş değilse, işleme devam et
+            if (recognizedText.trim().isNotEmpty) {
+              _processResult();
+            }
+          },
+        );
+      }
+    } else {
+      print('Mikrofon izni reddedildi');
+      // Kullanıcıya mikrofon erişimi gerektiğini bildirmek için bir dialog veya mesaj gösterebilirsiniz.
+    }
+  }
+
+  void _stopListening() {
+    if (_speech.isListening) {
+      setState(() {
+        isListening = false;
+      });
+
+      _speech.stop();
     }
   }
 
@@ -84,6 +132,28 @@ class _PronunciationGameState extends State<PronunciationGame> {
               style: const TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if (!isListening) {
+                      _startListening();
+                    }
+                  },
+                  child: const Text('Start Listening'),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    if (isListening) {
+                      _stopListening();
+                    }
+                  },
+                  child: const Text('Stop Listening'),
+                ),
+              ],
+            ),
             SizedBox(
               height: 170,
               child: ElevatedButton(
@@ -116,17 +186,15 @@ class _PronunciationGameState extends State<PronunciationGame> {
         onResult: (result) {
           String recognizedText = result.recognizedWords;
           print('Speech recognition result: $recognizedText');
-          if (recognizedText.trim().isEmpty) {
-            // Kullanıcının konuşması tamamlandı, sonuçları işle
-            endTime = DateTime.now();
-            _speech.stop(); // Dinlemeyi burada durdur
+          // Eğer tanınan metin boş değilse, işleme devam et
+          if (recognizedText.trim().isNotEmpty) {
             _processResult();
           }
         },
       );
 
       // Kullanıcının konuşması tamamlanmasını beklemek için bir süre bekle
-      await Future.delayed(const Duration(seconds: 5));
+      // await Future.delayed(const Duration(seconds: 5));
 
       // Bekleme sona erdiğinde, dinlemeyi durdurabilirsiniz
       if (_speech.isListening) {

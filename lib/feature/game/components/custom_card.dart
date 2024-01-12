@@ -6,12 +6,14 @@ class CustomCard extends StatelessWidget {
   final Word word;
   final Function() onTap;
   final bool isVisible;
+  final bool isImage;
 
   const CustomCard({
     Key? key,
     required this.word,
     required this.onTap,
     required this.isVisible,
+    required this.isImage,
   }) : super(key: key);
 
   @override
@@ -27,15 +29,14 @@ class CustomCard extends StatelessWidget {
             isVisible
                 ? Column(
                     children: [
-                      word.url.isNotEmpty
+                      isImage
                           ? Image.network(word.url, height: 40)
-                          : Container(),
+                          : Text(
+                              word.name,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(fontSize: 15),
+                            ),
                       const SizedBox(height: 5),
-                      Text(
-                        word.name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 15),
-                      ),
                     ],
                   )
                 : Container(),

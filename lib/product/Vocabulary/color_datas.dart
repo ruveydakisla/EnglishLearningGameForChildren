@@ -1,8 +1,8 @@
 class Word {
   final String name;
   final String url;
-
-  Word({required this.name, required this.url});
+  final bool? isImage;
+  Word({this.isImage, required this.name, required this.url});
 }
 
 class Colorr {

@@ -45,6 +45,7 @@ enum IconConstants {
   logOutIcon('https://cdn-icons-png.flaticon.com/128/4008/4008990.png'),
   microphoneIcon(
       'https://cdn-icons-png.flaticon.com/128/4596/4596814.png?semt=aiss'),
+  ok('https://cdn-icons-png.flaticon.com/128/1721/1721539.png?semt=ais'),
   icon_speaker('https://cdn-icons-png.flaticon.com/128/4859/4859079.png');
 
   final String value;
