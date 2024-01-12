@@ -148,7 +148,7 @@ class _ChooseYourAvatarState extends State<ChooseYourAvatar> {
                     TextField(
                       controller: _controller,
                       decoration: InputDecoration(
-                        labelText: 'Ruveyda',
+                        labelText: 'name',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -157,28 +157,45 @@ class _ChooseYourAvatarState extends State<ChooseYourAvatar> {
                     const SizedBox(
                       height: 50,
                     ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (selectedAvatarIndex != -1) {
-                          await CloudServices().updateUserNameAndAvatar(
-                            widget.mail ?? 'boş',
-                            _controller.text.toString(),
-                            AvatarConstantsExtension.getAvatarUrl(
-                                selectedAvatarIndex),
-                          );
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SignInPage()));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Please select an avatar.'),
+                    SizedBox(
+                      width: 200,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent),
+                        onPressed: () async {
+                          if (selectedAvatarIndex != -1) {
+                            await CloudServices().updateUserNameAndAvatar(
+                              widget.mail ?? 'boş',
+                              _controller.text.toString(),
+                              AvatarConstantsExtension.getAvatarUrl(
+                                  selectedAvatarIndex),
+                            );
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignInPage()));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Please select an avatar.',
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              'Okey',
+                              style: context.general.textTheme.bodyLarge,
                             ),
-                          );
-                        }
-                      },
-                      child: const Text('Okey'),
+                            IconConstants.ok.toImg
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 ),
