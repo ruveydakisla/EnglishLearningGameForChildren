@@ -74,14 +74,14 @@ class _GamePageState extends State<MatchingGame> {
       builder: (context) => AlertDialog(
         title: const Text('Game end'),
         content: Text(
-            'Toplam süre: $elapsedTime saniye\nEşleştirilen: $matchedCount\nPuanınız: $totalScore'),
+            'Total time: $elapsedTime seconds\nMatched: $matchedCount\nScore: $totalScore'),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               resetGame();
             },
-            child: const Text('Tamam'),
+            child: const Text('Okay'),
           ),
           TextButton(
             onPressed: () {
@@ -98,9 +98,14 @@ class _GamePageState extends State<MatchingGame> {
   }
 
   void resetGame() {
-    List<Word> vocabularyCopy = [...widget.vocabulary!, ...widget.vocabulary!];
-    vocabularyCopy.shuffle();
+    List<Word> vocabularyCopy = [];
+    for (var word in widget.vocabulary!) {
+      vocabularyCopy.add(word);
 
+      // İlk kelimenin kopyasını ekler
+      vocabularyCopy.add(Word(name: word.name, url: word.url, isImage: false));
+    }
+    vocabularyCopy.shuffle();
     setState(() {
       isTappedList = List.generate(vocabularyCopy.length, (index) => false);
       isVisibleList = List.generate(vocabularyCopy.length, (index) => false);
@@ -232,6 +237,7 @@ class _GamePageState extends State<MatchingGame> {
                 itemCount: words.length,
                 itemBuilder: (context, index) {
                   return CustomCard(
+                    isImage: words[index].isImage ?? true,
                     word: words[index],
                     isVisible:
                         isVisibleList.isNotEmpty && index < isVisibleList.length
