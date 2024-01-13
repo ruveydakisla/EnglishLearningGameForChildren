@@ -41,7 +41,7 @@ dependencies:
   firebase_ui_auth: ^1.11.0
   flutter_facebook_auth: '^3.5.0'
   firebase_ui_oauth_google: ^1.2.15
-
+  assets_audio_player: ^3.1.1
   #fonts
   google_fonts: ^6.1.0
 
@@ -56,11 +56,9 @@ dependencies:
   flutter_riverpod: ^2.4.9
   kartal: ^3.5.0
   equatable: ^2.0.5
-  flame: ^1.13.1
   audioplayers: ^5.2.1
   permission_handler: ^10.3.1
-
-
+  confetti: ^0.7.0
 
 dev_dependencies:
   flutter_test:
@@ -84,8 +82,14 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  
-    
+  assets:
+    - assets/sounds/wrong.mp3
+    - assets/sounds/wrongg.mp3
+    - assets/sounds/soft.mp3
+    - assets/sounds/correctt.mp3
+    - assets/sounds/music.mp3
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
