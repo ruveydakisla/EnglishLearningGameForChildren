@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:confetti/confetti.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -20,6 +21,35 @@ class SoundGame extends StatefulWidget {
 }
 
 class _SoundGameState extends State<SoundGame> {
+  late ConfettiController _controllerCenter;
+  final AudioCache audioCache = AudioCache();
+
+// ...
+
+  Path drawStar(Size size) {
+    // Method to convert degree to radians
+    double degToRad(double deg) => deg * (pi / 180.0);
+
+    const numberOfPoints = 5;
+    final halfWidth = size.width / 2;
+    final externalRadius = halfWidth;
+    final internalRadius = halfWidth / 2.5;
+    final degreesPerStep = degToRad(360 / numberOfPoints);
+    final halfDegreesPerStep = degreesPerStep / 2;
+    final path = Path();
+    final fullAngle = degToRad(360);
+    path.moveTo(size.width, halfWidth);
+
+    for (double step = 0; step < fullAngle; step += degreesPerStep) {
+      path.lineTo(halfWidth + externalRadius * cos(step),
+          halfWidth + externalRadius * sin(step));
+      path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep),
+          halfWidth + internalRadius * sin(step + halfDegreesPerStep));
+    }
+    path.close();
+    return path;
+  }
+
   final player = AudioPlayer();
   late List<String> words;
   String currentWord = '';
@@ -65,21 +95,24 @@ class _SoundGameState extends State<SoundGame> {
         'https://translate.google.com/translate_tts?ie=UTF-8&q=$currentWord&tl=en&client=tw-ob'));
   }
 
-  void _checkAnswer(String selectedWord) {
+  Future<void> _checkAnswer(String selectedWord) async {
     int points;
     if (selectedWord == currentWord) {
-      // Doğru cevap
+      // Correct answer
       points = 5;
+      SoundService().playCorrect();
+      _controllerCenter.play();
+      Future.delayed(const Duration(seconds: 1), () {
+        _playRandomWord();
+      });
     } else {
-      // Yanlış cevap
       points = -4;
+      SoundService().playWrong();
     }
 
     setState(() {
       score += points;
     });
-
-    _playRandomWord(); // Sonraki kelimeye geç
   }
 
   void _showEndGameDialog() {
@@ -109,6 +142,8 @@ class _SoundGameState extends State<SoundGame> {
   void initState() {
     super.initState();
     words = widget.words!.map((word) => word.name).toList();
+    _controllerCenter =
+        ConfettiController(duration: const Duration(milliseconds: 50));
     _startGame();
   }
 
@@ -141,6 +176,23 @@ class _SoundGameState extends State<SoundGame> {
               'Score: $score',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
+            Align(
+              alignment: Alignment.center,
+              child: ConfettiWidget(
+                confettiController: _controllerCenter,
+                blastDirectionality: BlastDirectionality
+                    .explosive, // don't specify a direction, blast randomly
+                // start again as soon as the animation is finished
+                colors: const [
+                  Colors.green,
+                  Colors.blue,
+                  Colors.pink,
+                  Colors.orange,
+                  Colors.purple
+                ], // manually specify the colors to be used
+                createParticlePath: drawStar, // define a custom shape/path.
+              ),
+            ),
             SizedBox(
                 width: 170,
                 height: 170,
@@ -155,6 +207,8 @@ class _SoundGameState extends State<SoundGame> {
               height: 40,
             ),
             Wrap(
+              runSpacing: 5,
+              spacing: 20,
               alignment: WrapAlignment.center,
               children: widget.words!
                   .map((word) => CustomSoundGameCard(
@@ -176,5 +230,6 @@ class _SoundGameState extends State<SoundGame> {
   void dispose() {
     timer.cancel(); // Widget kapatıldığında timer'ı iptal et
     super.dispose();
+    _controllerCenter.dispose();
   }
 }

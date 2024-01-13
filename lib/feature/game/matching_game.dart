@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:math';
+import 'package:confetti/confetti.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/core/services/cloud_services.dart';
 import 'package:flutter_application/product/Vocabulary/color_datas.dart';
 import 'package:flutter_application/product/constants/color_constants.dart';
+import 'package:flutter_application/product/services/sound_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kartal/kartal.dart';
 import 'components/custom_card.dart';
@@ -17,6 +20,8 @@ class MatchingGame extends StatefulWidget {
 }
 
 class _GamePageState extends State<MatchingGame> {
+  late ConfettiController _controllerTopCenter;
+  late ConfettiController _controllerBottomCenter;
   List<Word> words = [];
   List<bool> isTappedList = [];
   List<bool> isVisibleList = [];
@@ -25,12 +30,39 @@ class _GamePageState extends State<MatchingGame> {
   int totalScore = 0;
   bool gameEnded = false;
   late Timer timer;
+  Path drawStar(Size size) {
+    // Method to convert degree to radians
+    double degToRad(double deg) => deg * (pi / 180.0);
+
+    const numberOfPoints = 5;
+    final halfWidth = size.width / 2;
+    final externalRadius = halfWidth;
+    final internalRadius = halfWidth / 2.5;
+    final degreesPerStep = degToRad(360 / numberOfPoints);
+    final halfDegreesPerStep = degreesPerStep / 2;
+    final path = Path();
+    final fullAngle = degToRad(360);
+    path.moveTo(size.width, halfWidth);
+
+    for (double step = 0; step < fullAngle; step += degreesPerStep) {
+      path.lineTo(halfWidth + externalRadius * cos(step),
+          halfWidth + externalRadius * sin(step));
+      path.lineTo(halfWidth + internalRadius * cos(step + halfDegreesPerStep),
+          halfWidth + internalRadius * sin(step + halfDegreesPerStep));
+    }
+    path.close();
+    return path;
+  }
 
   @override
   void initState() {
     super.initState();
     resetGame();
     startGame();
+    _controllerTopCenter =
+        ConfettiController(duration: const Duration(seconds: 3));
+    _controllerBottomCenter =
+        ConfettiController(duration: const Duration(seconds: 3));
   }
 
   @override
@@ -64,6 +96,9 @@ class _GamePageState extends State<MatchingGame> {
   }
 
   void endGame() {
+    _controllerTopCenter.play();
+    _controllerBottomCenter.play();
+
     gameEnded = true;
     timer.cancel();
 
@@ -145,6 +180,7 @@ class _GamePageState extends State<MatchingGame> {
 
       if (words[firstIndex].name == words[secondIndex].name) {
         setState(() {
+          SoundService().playCorrect();
           isVisibleList[firstIndex] = false;
           isVisibleList[secondIndex] = false;
           totalScore += 10;
@@ -154,6 +190,8 @@ class _GamePageState extends State<MatchingGame> {
           }
         });
       } else {
+        SoundService().playWrong();
+
         Future.delayed(const Duration(milliseconds: 500), () {
           setState(() {
             isTappedList[firstIndex] = false;
@@ -179,6 +217,31 @@ class _GamePageState extends State<MatchingGame> {
             children: [
               Column(
                 children: [
+                  //BOTTOM CENTER
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ConfettiWidget(
+                      confettiController: _controllerBottomCenter,
+                      blastDirection: -pi / 2,
+                      emissionFrequency: 0.01,
+                      numberOfParticles: 20,
+                      maxBlastForce: 100,
+                      minBlastForce: 80,
+                      gravity: 0.3,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: ConfettiWidget(
+                      confettiController: _controllerTopCenter,
+                      blastDirection: pi / 2,
+                      maxBlastForce: 5, // set a lower max blast force
+                      minBlastForce: 2, // set a lower min blast force
+                      emissionFrequency: 0.05,
+                      numberOfParticles: 50, // a lot of particles at once
+                      gravity: 1,
+                    ),
+                  ),
                   Container(
                     decoration: const BoxDecoration(
                         color: ColorConstants.actOfWrath,
