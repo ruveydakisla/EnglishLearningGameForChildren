@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/game/sound_game.dart';
 import 'package:flutter_application/feature/topics/topics.dart';
+import 'package:flutter_application/product/services/sound_service.dart';
 import 'package:flutter_application/product/widget/cards/index.dart';
 import 'package:flutter_application/product/constants/index.dart';
 
@@ -12,6 +13,12 @@ class TopicsSound extends StatefulWidget {
 }
 
 class _TopicsState extends State<TopicsSound> {
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   final List<Topic> topics = Topic.topics;
   @override
   Widget build(BuildContext context) {

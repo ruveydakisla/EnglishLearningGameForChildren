@@ -6,6 +6,7 @@ import 'package:flutter_application/product/Vocabulary/color_datas.dart';
 import 'package:flutter_application/product/constants/index.dart';
 import 'package:flutter_application/product/widget/cards/custom_games_card.dart';
 
+import '../../product/services/sound_service.dart';
 import '../topics/topics_matching.dart';
 
 class GamesView extends StatefulWidget {
@@ -16,6 +17,20 @@ class GamesView extends StatefulWidget {
 }
 
 class _GamesViewState extends State<GamesView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // SoundService().playSong();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    SoundService().stopSong();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/game/games_view.dart';
-import 'package:flutter_application/feature/signIn/signIn.dart';
+import 'package:flutter_application/feature/game/sound_game.dart';
+import 'package:flutter_application/feature/navbar/top_navbar.dart';
 import 'package:flutter_application/product/initialize/application_start.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,6 +28,6 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           textTheme: GoogleFonts.martelSansTextTheme(),
         ),
-        home: const GamesView());
+        home: const MyAppp());
   }
 }

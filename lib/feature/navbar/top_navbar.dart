@@ -5,6 +5,8 @@ import 'package:flutter_application/feature/profile_dart/profile.dart';
 import 'package:flutter_application/feature/score_table/score_table.dart';
 import 'package:flutter_application/product/constants/index.dart';
 
+import '../../product/services/sound_service.dart';
+
 class MyAppp extends StatelessWidget {
   const MyAppp({super.key});
 
@@ -33,6 +35,17 @@ class _MyHomePageState extends State<MyHomePage> {
     const AllUsersPage(),
     const Profile(),
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
