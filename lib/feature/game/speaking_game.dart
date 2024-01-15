@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/core/services/auth_services.dart';
+import 'package:flutter_application/core/services/cloud_services.dart';
 import 'package:flutter_application/product/constants/index.dart';
+import 'package:flutter_application/product/services/sound_service.dart';
 import 'package:kartal/kartal.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:speech_to_text/speech_to_text.dart';
 import '../../product/Vocabulary/index.dart';
 
 class PronunciationGame extends StatefulWidget {
-  final List<Word> wordList;
+  final List<Word> vocabulary;
 
-  const PronunciationGame({super.key, required this.wordList});
+  const PronunciationGame({super.key, required this.vocabulary});
 
   @override
-  // ignore: library_private_types_in_public_api
   _PronunciationGameState createState() => _PronunciationGameState();
 }
 
 class _PronunciationGameState extends State<PronunciationGame> {
   Future<void> _checkPermission() async {
-    // Mikrofon izni kontrol ediliyor
     var status = await Permission.microphone.status;
 
     if (status.isDenied) {
-      // Eğer izin reddedilmişse, kullanıcıdan izin isteniyor
       await Permission.microphone.request();
     }
   }
 
   final stt.SpeechToText _speech = stt.SpeechToText();
+  final SpeechToText _speechToText = SpeechToText();
+  String _lastWords = "";
 
   int currentIndex = 0;
   DateTime? startTime;
   DateTime? endTime;
-  bool isListening = false;
+
   @override
   void initState() {
     super.initState();
@@ -54,40 +58,28 @@ class _PronunciationGameState extends State<PronunciationGame> {
   }
 
   void _startListening() async {
-    var status = await Permission.microphone.request();
-
-    if (status.isGranted) {
-      if (!_speech.isListening) {
-        setState(() {
-          isListening = true;
-          startTime = DateTime.now(); // Konuşma başladığında zamanı kaydet
-        });
-
-        await _speech.listen(
-          onResult: (result) {
-            String recognizedText = result.recognizedWords;
-            print('Speech recognition result: $recognizedText');
-            // Eğer tanınan metin boş değilse, işleme devam et
-            if (recognizedText.trim().isNotEmpty) {
-              _processResult();
-            }
-          },
-        );
-      }
-    } else {
-      print('Mikrofon izni reddedildi');
-      // Kullanıcıya mikrofon erişimi gerektiğini bildirmek için bir dialog veya mesaj gösterebilirsiniz.
-    }
+    await _speechToText.listen(
+      onResult: _onSpeechResult,
+      listenFor: const Duration(seconds: 30),
+      localeId: "en_En",
+      cancelOnError: false,
+      partialResults: false,
+      listenMode: ListenMode.confirmation,
+    );
+    setState(() {});
   }
 
-  void _stopListening() {
-    if (_speech.isListening) {
-      setState(() {
-        isListening = false;
-      });
+  void _stopListening() async {
+    await _speechToText.stop();
+    setState(() {});
+  }
 
-      _speech.stop();
-    }
+  void _onSpeechResult(SpeechRecognitionResult result) {
+    setState(() {
+      _lastWords = result.recognizedWords;
+    });
+
+    _processResult();
   }
 
   @override
@@ -112,117 +104,74 @@ class _PronunciationGameState extends State<PronunciationGame> {
               .copyWith(color: ColorConstants.cremeDeMenth),
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  side: const BorderSide(
-                      width: 5, color: ColorConstants.actOfWrath)),
-              child: Image.network(
-                widget.wordList[currentIndex].url,
-                height: 200,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Say: ${widget.wordList[currentIndex].name}',
-              style: const TextStyle(fontSize: 24),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    if (!isListening) {
-                      _startListening();
-                    }
-                  },
-                  child: const Text('Start Listening'),
+      body: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fitHeight,
+                image: AssetImage('assets/images/backgraund.png'))),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    side: const BorderSide(
+                        width: 5, color: ColorConstants.actOfWrath)),
+                child: Image.network(
+                  widget.vocabulary[currentIndex].url,
+                  height: 200,
                 ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    if (isListening) {
-                      _stopListening();
-                    }
-                  },
-                  child: const Text('Stop Listening'),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 170,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorConstants.cherryPearl,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(150),
-                        side: const BorderSide(
-                            color: ColorConstants.darkKnight))),
-                onPressed: _listen,
-                onLongPress: () {
-                  startTime = DateTime.now();
-                },
-                // onLongPressUp yerine onResult kullanılacak
-                // Bu olay, konuşma sona erdiğinde çağrılır
-                // Tanıma sonuçlarını kontrol etmek için kullanılır
-                // Result sıfır veya boş bir dize ise, kullanıcının konuşması tamamlandı demektir
-                child: IconConstants.microphoneIcon.toImg,
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              Text(
+                'Say: ${widget.vocabulary[currentIndex].name}',
+                style: const TextStyle(fontSize: 24),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 170,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorConstants.cherryPearl,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(150),
+                          side: const BorderSide(
+                              color: ColorConstants.darkKnight))),
+                  onPressed: _startListening,
+                  child: IconConstants.microphoneIcon.toImg,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  void _listen() async {
-    if (!_speech.isListening) {
-      await _speech.listen(
-        onResult: (result) {
-          String recognizedText = result.recognizedWords;
-          print('Speech recognition result: $recognizedText');
-          // Eğer tanınan metin boş değilse, işleme devam et
-          if (recognizedText.trim().isNotEmpty) {
-            _processResult();
-          }
-        },
-      );
-
-      // Kullanıcının konuşması tamamlanmasını beklemek için bir süre bekle
-      // await Future.delayed(const Duration(seconds: 5));
-
-      // Bekleme sona erdiğinde, dinlemeyi durdurabilirsiniz
-      if (_speech.isListening) {
-        _speech.stop();
-      }
-    }
-  }
-
   void _processResult() {
-    String? result = _speech.lastRecognizedWords;
-    if (result.toLowerCase() ==
-        widget.wordList[currentIndex].name.toLowerCase()) {
-      // Doğru telaffuz, bir sonraki kelimeye geç
-      if (currentIndex < widget.wordList.length - 1) {
-        setState(() {
-          currentIndex++;
-        });
+    if (_lastWords.trim().isNotEmpty) {
+      if (_lastWords.toLowerCase() ==
+          widget.vocabulary[currentIndex].name.toLowerCase()) {
+        if (currentIndex < widget.vocabulary.length - 1) {
+          setState(() {
+            currentIndex++;
+          });
+          SoundService().playCorrect();
+          _stopListening();
+
+          _startListening();
+        } else {
+          showGameOverDialog();
+        }
       } else {
-        // Oyun bitti
-        showGameOverDialog();
+        SoundService().playWrong();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Try Again!'),
+          ),
+        );
       }
-    } else {
-      // Yanlış telaffuz, kullanıcıyı uyar
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Yanlış telaffuz! Lütfen tekrar deneyin.'),
-        ),
-      );
     }
   }
 
@@ -232,17 +181,18 @@ class _PronunciationGameState extends State<PronunciationGame> {
     });
     Duration duration = endTime!.difference(startTime!);
     int seconds = duration.inSeconds;
-    int score = 100 - (seconds * 5); // Örnek bir puanlama
+    int score = 100 - (seconds * 5);
+    CloudServices()
+        .addScoreToUser(AuthServices().auth.currentUser!.email!, score);
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Oyun Bitti'),
-          content: Text('Tebrikler! Oyunu tamamladınız. Puanınız: $score'),
+          title: const Text('Game End'),
+          content: Text('Congrats! . Your Score: $score'),
           actions: [
             TextButton(
               onPressed: () {
-                // Oyunu yeniden başlat
                 resetGame();
                 Navigator.pop(context);
               },

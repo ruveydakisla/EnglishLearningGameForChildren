@@ -42,6 +42,7 @@ dependencies:
   flutter_facebook_auth: '^3.5.0'
   firebase_ui_oauth_google: ^1.2.15
   assets_audio_player: ^3.1.1
+  avatar_glow: ^3.0.1
   #fonts
   google_fonts: ^6.1.0
 
@@ -88,6 +89,9 @@ flutter:
     - assets/sounds/soft.mp3
     - assets/sounds/correctt.mp3
     - assets/sounds/music.mp3
+    - assets/images/backgraund.png
+    - assets/images/backgraund2.png
+    - assets/images/backgraund3.png
 
 
 

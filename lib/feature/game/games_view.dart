@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/feature/game/speaking_game.dart';
 import 'package:flutter_application/feature/topics/topics_riddle.dart';
 import 'package:flutter_application/feature/topics/topics_sound_view.dart';
+import 'package:flutter_application/feature/topics/topics_speaking.dart';
 import 'package:flutter_application/product/Vocabulary/color_datas.dart';
+import 'package:flutter_application/product/Vocabulary/index.dart';
 import 'package:flutter_application/product/constants/index.dart';
 import 'package:flutter_application/product/widget/cards/custom_games_card.dart';
 
@@ -70,9 +72,7 @@ class _GamesViewState extends State<GamesView> {
                   CustomGamesCard(
                       text: 'Speaking Game',
                       img: ImageConstants.speakingGameImg.toImg,
-                      gamewidget: PronunciationGame(
-                        wordList: Colorr.colors,
-                      )),
+                      gamewidget: const TopicsSpeaking()),
                   const SizedBox(
                     width: 5,
                   ),
