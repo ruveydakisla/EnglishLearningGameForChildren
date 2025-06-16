@@ -1,76 +1,82 @@
 # Word Wonderland
 
-![Word Wonderland Logo](https://img.freepik.com/free-vector/flat-design-english-school-illustration_23-2149486193.jpg?size=626&ext=jpg)
+<img src="https://img.freepik.com/free-vector/flat-design-english-school-illustration_23-2149486193.jpg?size=626&ext=jpg" alt="Word Wonderland Logo" width="300" />
 
 ## Overview
 
-**Word Wonderland** is a mobile application developed using Flutter to enhance children's English vocabulary. The app features four mini-games that focus on improving writing, speaking, listening, and matching skills.
+**Word Wonderland** is a Flutter-based mobile application designed to enhance children's English vocabulary. The app offers four engaging mini-games focused on developing writing, speaking, listening, and matching skills in a fun and educational environment.
 
 ## Features
 
-- **Mini-Games**: Four interactive mini-games to enhance different language skills.
-  - Writing
-  - Speaking
-  - Listening
-  - Matching
-- **Authentication**: Implemented Firebase for user authentication.
-- **Database**: Utilized Firestore to store user data and game progress.
-- **Engaging Gameplay**: Designed to be both educational and entertaining.
-- **User Testing**: Conducted extensive user testing to ensure an intuitive and user-friendly experience.
+* **Mini-Games**: Four interactive games targeting different language skills:
+
+  * Writing
+  * Speaking
+  * Listening
+  * Matching
+* **Authentication**: Secure login and registration using Firebase Authentication.
+* **Data Management**: Firestore integration for storing user profiles and game progress.
+* **Child-Friendly Design**: Engaging visuals and intuitive gameplay for a delightful learning experience.
+* **User Testing**: Thoroughly tested with children to ensure ease of use and enjoyment.
 
 ## Screenshots
 
-Here are some screenshots of the application:
-
 ### Home Screen
-![Home Screen](./assets/screenshots/Games.png)
+
+<img src="./assets/screenshots/Games.png" alt="Home Screen" width="200" />
 
 ### Writing Game
-![Writing Game](./assets/screenshots/writing.png)
+
+<img src="./assets/screenshots/writing.png" alt="Writing Game" width="200" />
 
 ### Speaking Game
-![Speaking Game](./assets/screenshots/speaking.png)
+
+<img src="./assets/screenshots/speaking.png" alt="Speaking Game" width="200" />
 
 ### Listening Game
-![Listening Game](./assets/screenshots/listeningGame.png)
+
+<img src="./assets/screenshots/listeningGame.png" alt="Listening Game" width="200" />
 
 ### Matching Game
-![Matching Game](./assets/screenshots/matchingGame.png)
+
+<img src="./assets/screenshots/matchingGame.png" alt="Matching Game" width="200" />
 
 ## Installation
 
-To run this project on your local machine:
+To run the project locally:
 
 1. Clone the repository:
-   ```sh
+
+   ```bash
    git clone https://github.com/your-username/word-wonderland.git
+   ```
 
 2. Navigate to the project directory:
-   ```sh
+
+   ```bash
    cd word-wonderland
+   ```
 
 3. Install dependencies:
-   ```sh
-   flutter pub get
 
-4. Run the app:
-   ```sh
+   ```bash
+   flutter pub get
+   ```
+
+4. Launch the application:
+
+   ```bash
    flutter run
+   ```
 
 ## Technologies Used
-    - Flutter
-    - Firebase Authentication
-    - Firestore
-    - Dart
 
-## Contributing
-
-Contributions are welcome! Please fork this repository and submit a pull request.
-License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-Contact
-
-Ruveyda Kışla - ruveydakisla34@gmail.com
+* Flutter
+* Dart
+* Firebase Authentication
+* Firestore
 
 
+## Contact
+
+Ruveyda Kışla - [ruveydakisla34@gmail.com](mailto:ruveydakisla34@gmail.com)
